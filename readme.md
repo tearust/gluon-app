@@ -14,3 +14,14 @@ Notice that make sure the node version greater than 14.
 
 ## GLUON-APP
 
+### How to start
+```
+cd mobile
+npm i
+cd ios
+pod install
+```
+
+* Open mobile/ios/mobile.xcworkspace with XCode.
+* Run it with iOS simulator.
+
