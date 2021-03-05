@@ -9,7 +9,8 @@ export default (props)=>{
       text: props.title || '',
       style: Styles.header_title,
     },
-    backgroundImage: require('../assets/images/nav_bg.png'),
+    // backgroundImage: require('../assets/images/nav_bg.png'),
+    backgroundColor: '#35a696',
     leftComponent: UI.getHeaderBackElement(()=>{
       UI.goBack();
     }),

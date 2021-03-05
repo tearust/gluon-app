@@ -14,6 +14,7 @@
 
   <div id="js_qr_code" class="center"></div>
 
+  <p>{{params ? params.text : ''}}</p>
   <span slot="footer" class="dialog-footer">
     <el-button @click="visible = false">Close</el-button>
   </span>
@@ -61,6 +62,7 @@ export default {
     PubSub.subscribe('tea-qrcode-modal', (msg, opts={})=>{
       if(opts.visible){
         this.visible = true;
+        delete opts.visible;
         this.params = opts;       
       }
       else{

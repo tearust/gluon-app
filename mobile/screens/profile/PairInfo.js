@@ -88,16 +88,33 @@ export default createContainer(class extends Base {
         </List.Item>
 
         <Button 
+          onPress={()=>{this._goPath('mock_input_modal', 'qrcode')}}
+          title="MOCK FOR QRCODE" 
+          type="solid"
+          containerStyle={{
+            marginTop: 20,
+            marginLeft: 40,
+            marginRight: 40,
+            marginBottom: 0,
+          }} 
+        />
+
+        <Button 
           onPress={()=>{this._goPath('scan_qr_code_modal')}}
           title="SCAN QR CODE" 
           type="solid"
           containerStyle={{
-            marginTop: 50,
+            marginTop: 20,
             marginLeft: 40,
             marginRight: 40,
             marginBottom: 50,
           }} 
+          buttonStyle={{
+            backgroundColor: Colors.tintColor,
+          }}
         />
+
+        
 
         {
           canPair &&
@@ -106,11 +123,15 @@ export default createContainer(class extends Base {
               onPress={this.pairHandler.bind(this, json)}
               title="PAIR DEVICE" 
               containerStyle={{
-                marginTop: -30,
+                marginTop: 10,
                 marginLeft: 40,
                 marginRight: 40,
                 marginBottom: 50,
+                
               }} 
+              buttonStyle={{
+                backgroundColor: Colors.tintColor,
+              }}
             />
           )
         }

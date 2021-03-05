@@ -15,11 +15,12 @@ export default {
   header_title: {
     fontSize: 20,
     color: '#fff',
-    // fontFamily: 'IKEA',
+
+    fontWeight: 'bold',
   },
 
   ikea: {
-    // fontFamily: 'IKEA',
+
   },
 
 

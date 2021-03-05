@@ -27,7 +27,7 @@ export default createContainer(class extends Base {
         contentStyle={{paddingLeft:0, paddingRight:0}}
       >
 
-        {this.renderEachListItem({
+        {/* {this.renderEachListItem({
           title: has_password ? 'Change Password' : 'Set Password',
           status: has_password,
           cb(){
@@ -37,7 +37,7 @@ export default createContainer(class extends Base {
               })
             }
           }
-        })}
+        })} */}
         
         {this.renderEachListItem({
           title: 'LAYER1 ACCOUNT',

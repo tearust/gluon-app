@@ -9,6 +9,7 @@ const init_state = {
   qrcode: null,
 
   encrypted_password: null,
+
 };
 
 

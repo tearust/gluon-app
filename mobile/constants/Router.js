@@ -12,6 +12,8 @@ import Test from '../screens/profile/test';
 
 import ScanQrCodeModal from '../screens/modals/ScanQrCodeModal';
 
+import MockInputModal from '../screens/modals/MockInputModal';
+
 export default {
   init_tab: 'tab_btc',
   tab : [
@@ -59,6 +61,15 @@ export default {
         headerShown: false
       }
     },
+    {
+      name: 'mock_input_modal',
+      component: MockInputModal,
+      options: {
+        headerBackTitle: '',
+        headerTitle: '',
+        headerShown: false
+      }
+    }
     
   ],
 

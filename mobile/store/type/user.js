@@ -10,4 +10,5 @@ export default {
   'set_qrcode': set('set_qrcode'),
 
   'set_encrypted_password': set('set_encrypted_password'),
+
 };
