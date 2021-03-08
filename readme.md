@@ -1,6 +1,6 @@
 ## GLUON-WEBAPP
 
-### How to start
+### Run in local
 ```
 cd webapp
 npm i
@@ -14,7 +14,9 @@ Notice that make sure the node version greater than 14.
 
 ## GLUON-APP
 
-### How to start
+[Download ios app](http://d.zqapps.com/m63e)
+
+### Run in local
 ```
 cd mobile
 npm i
