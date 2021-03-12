@@ -1,8 +1,8 @@
 import React from 'react';
 import {Button, Image, Icon, Avatar, Card, Divider} from 'react-native-elements';
-import {Base, _, UI, createContainer} from 'helper';
+import {Base, _, UI, createContainer, Log} from 'helper';
 import {ScrollPageView} from '../../components/Page';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import Text from '../../components/Text';
 import Header from '../../components/Header';
 import {Progress} from '@ant-design/react-native';
@@ -20,7 +20,7 @@ import userAction from '../../store/action/user';
 export default createContainer(class extends Base {
   _defineState(){
     return {
-      
+      log: [],
     };
   }
   _defineStyle(){
@@ -57,7 +57,35 @@ export default createContainer(class extends Base {
       
         
         <Button type="solid" onPress={this.recharge.bind(this)} containerStyle={{marginTop: 40}} title="TOP UP" />
+        <Button type="outline" onPress={this.createNewAccount.bind(this)} containerStyle={{marginTop: 10}} title="Create New Account" />
+
+        {this.renderLog()}
       </ScrollPageView>
+    );
+  }
+
+  renderLog(){
+    return (
+      <ScrollView 
+        style={{
+          height: 300,
+          backgroundColor: '#000',
+          width: Layout.window.width,
+          top: Layout.window.height - 440,
+          position: 'absolute',
+          paddingHorizontal: 10,
+          paddingVertical: 5,
+        }}
+      >
+        {_.map(this.state.log, (item)=>{
+          // const str = `[${item.level}][${item.tag}] : ${item.log}`;
+          const str = `[${item.tag}] : ${item.log}`;
+          return (
+            <Text style={{color:'#0f0',}}>{str}</Text>
+          )
+        })}
+
+      </ScrollView>
     );
   }
 
@@ -70,13 +98,26 @@ export default createContainer(class extends Base {
   }
 
   async recharge(){
+    Log.d('UI', 'click "top up" button');
+    UI.loading(true);
     const {layer1_account} = this.props;
     const layer1 = await Layer1.get();
     
-    UI.loading(true);
+    
     await layer1.faucet(layer1_account.address);
     const ac = await layer1.getCurrentAccount();
 
+    this.props.setLayer1Account(ac);
+
+    UI.loading(false);
+  }
+
+  async createNewAccount(){
+    Log.d('UI', 'click "create new account" button');
+    UI.loading(true);
+
+    const layer1 = await Layer1.get();
+    const ac = await layer1.createNewAccount();
     this.props.setLayer1Account(ac);
 
     UI.loading(false);
@@ -90,6 +131,10 @@ export default createContainer(class extends Base {
 // console.log(11, ac);
 //     this.props.setLayer1Account(ac);
 //     UI.loading(false);
+
+    Log.bind((log)=>{
+      this.setState({log});
+    })
   }
 
   

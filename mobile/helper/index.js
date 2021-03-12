@@ -8,6 +8,7 @@ import native from './native';
 import request from './request';
 import Btc from './Btc';
 import crypto from './crypto';
+import Log from './Log';
 
 import {connect} from 'react-redux';
 
@@ -41,4 +42,5 @@ export {
 	request,
 	Btc,
 	crypto,
+	Log,
 };

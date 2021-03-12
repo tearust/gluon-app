@@ -1,7 +1,7 @@
 
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 import { cryptoWaitReady, mnemonicGenerate } from '@polkadot/util-crypto';
-import {_, UI} from 'helper';
+import {_, UI, Log} from 'helper';
 import types from './types';
 const rpc = require('./rpc');
 
@@ -12,6 +12,8 @@ import {cache} from 'helper';
 import gluon from './gluon';
 
 const LAYER1_URL = 'ws://139.198.187.91:9944';
+
+const tag = 'LAYER1';
 
 let _layer1 = null;
 export default class Layer1 {
@@ -55,12 +57,15 @@ export default class Layer1 {
     });
 
     this.gluon = new gluon(this.api, null, 'app');
+
+    Log.i(tag, 'connected');
   }
 
   async mnemonicGenerate(){
     let mn = await cache.get('tea-mnemonic');
     if(!mn){
       mn = mnemonicGenerate();
+      Log.d(tag, 'mnemonicGenerate =>', mn);
       await cache.set('tea-mnemonic', mn);
     }
     return mn;
@@ -71,14 +76,22 @@ export default class Layer1 {
     return ac;
   }
 
+  async createNewAccount(){
+    await cache.remove('tea-mnemonic');
+    Log.d(tag, 'create new account');
+
+    return await this.getCurrentAccount();
+  }
+
   async getCurrentAccount(){
     const mn = await this.mnemonicGenerate();
+    Log.d(tag, 'current mnemonic =>', mn);
     const account = this.generateWithMnemonic(mn);
+    Log.d(tag, 'current address =>', account.address);
     account.mnemonic = mn;
     account.balance = await this.getAccountBalance(account.address);
-
+    Log.d(tag, 'current balance =>', account.balance);
     account.profile = await this.gluon.getAccountProfile(account.address);
-
     return account;
   }
 
