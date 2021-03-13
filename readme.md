@@ -28,3 +28,7 @@ pod install
 
 * Open mobile/ios/mobile.xcworkspace with XCode.
 * Run it with iOS simulator.
+
+## UI Walkthrough
+1 Access WebApp at [http://127.0.0.1:3000/](http://127.0.0.1:3000/)
+2 
