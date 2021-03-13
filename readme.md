@@ -30,5 +30,7 @@ pod install
 * Run it with iOS simulator.
 
 ## UI Walkthrough
-1 Access WebApp at [http://127.0.0.1:3000/](http://127.0.0.1:3000/)
-2 
+1. Install Polkadot{.js} browser extension
+   - Download the Chrome extension [here](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related)
+   - Download the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/)
+2. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
