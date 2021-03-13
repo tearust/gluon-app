@@ -1,6 +1,8 @@
-## GLUON-WEBAPP
+##Standard Setup Instructions
 
-### Run in local
+### GLUON-WEBAPP
+
+#### Run in local
 ```
 cd webapp
 npm i
@@ -12,11 +14,11 @@ Notice that make sure the node version greater than 14.
 -----
 
 
-## GLUON-APP
+### GLUON-MOBILE-APP
 
 [Download ios app](http://d.zqapps.com/m63e)
 
-### Run in local
+#### Run in local
 ```
 cd mobile
 npm i
@@ -26,4 +28,3 @@ pod install
 
 * Open mobile/ios/mobile.xcworkspace with XCode.
 * Run it with iOS simulator.
-
