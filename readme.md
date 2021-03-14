@@ -43,14 +43,14 @@ pod install
 2. Check for successful installation:
    - Chrome &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-success.png" width="320" height="350">
-&nbsp;
+   &nbsp;
    - Firefox &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/firefox-extension-sucess.png" width="320" height="160">
-&nbsp;
-&nbsp;
+   &nbsp;
+   &nbsp;
 
 3. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
-&nbsp;
-&nbsp;
+   &nbsp;
+   &nbsp;
 
 4.
