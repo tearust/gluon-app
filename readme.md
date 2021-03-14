@@ -37,7 +37,7 @@ pod install
    &nbsp;
 
    - Download the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/)
-   <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="600" height="200">
+   <img src="https://github.com/tearust/gluon-app/blob/main/public/images/firefox-extension-install.png" width="600" height="200">
    &nbsp;
 
 2. Check for successful installation:
@@ -45,6 +45,6 @@ pod install
 <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-success.png" width="320" height="350">
 &nbsp;
   - Firefox
-<img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="320" height="160">
+<img src="https://github.com/tearust/gluon-app/blob/main/public/images/firefox-extension-sucess.png" width="320" height="160">
 3. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
 3.
