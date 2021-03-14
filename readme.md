@@ -33,7 +33,7 @@ pod install
 ### Basic UI Walkthrough
 1. Install the Polkadot{.js} browser extension
    - Download the Chrome extension [here](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related)
-   <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="400" height="100">
+   <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="800" height="200">
 
    - Download the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/)
 
