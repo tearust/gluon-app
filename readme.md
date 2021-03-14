@@ -34,8 +34,17 @@ pod install
 1. Install the Polkadot{.js} browser extension
    - Download the Chrome extension [here](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related)
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="800" height="200">
+   &nbsp;
 
    - Download the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/)
+   <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="600" height="200">
+   &nbsp;
 
-2. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
+2. Check for successful installation:
+  - Chrome
+<img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-success.png" width="320" height="350">
+&nbsp;
+  - Firefox
+<img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-install.png" width="320" height="160">
+3. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
 3.
