@@ -31,7 +31,10 @@ pod install
 
 ## Walkthrough and Instructions
 ### Basic UI Walkthrough
-1. Install Polkadot{.js} browser extension
+1. Install the Polkadot{.js} browser extension
    - Download the Chrome extension [here](https://chrome.google.com/webstore/detail/polkadot%7Bjs%7D-extension/mopnmbcafieddcagagdcbnhejhlodfdd/related)
+   <!-- <img src="/"> -->
    - Download the Firefox extension [here](https://addons.mozilla.org/en-US/firefox/addon/polkadot-js-extension/)
+
 2. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
+3.
