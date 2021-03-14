@@ -44,6 +44,7 @@ pod install
    - Chrome &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-success.png" width="320" height="350">
    &nbsp;
+   &nbsp;
    - Firefox &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/firefox-extension-sucess.png" width="320" height="160">
    &nbsp;
