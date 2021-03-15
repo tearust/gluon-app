@@ -43,14 +43,34 @@ pod install
 2. Check for successful installation:
    - Chrome &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/chrome-extension-success.png" width="320" height="350">
-   
+
    - Firefox &nbsp;
    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/firefox-extension-sucess.png" width="320" height="160">
    &nbsp;
    &nbsp;
 
+4. Create Polkadot account
+
 3. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
    &nbsp;
    &nbsp;
 
-4.
+5. Navigate to profile tab and select Polkadot account
+
+6. Top up adds 1000 units to balance
+
+7. Run mobile application
+
+8. Navigate to profile tab
+
+9. Access LAYER1 ACCOUNT
+
+10. TOP UP adds 1000 units to balance
+
+11. On the WebApp profile page, select BIND MOBILE
+
+12. QR code is generated
+
+13. On MobileApp, navigate to PAIR INFO in Profile tab
+
+14. Scan QR code and click Pair Device button
