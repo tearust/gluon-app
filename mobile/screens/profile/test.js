@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Input, Image, Icon, ListItem} from 'react-native-elements';
-import {Base, _, UI, Btc, pubsub, crypto} from 'helper';
+import {Base, _, UI, Btc, pubsub, crypto, Log} from 'helper';
 import {ScrollPageView} from '../../components/Page';
 import {View} from 'react-native';
 import Text from '../../components/Text';
@@ -22,6 +22,7 @@ export default class extends Base {
   _defineState(){
     return {
       text: '',
+      log: [],
     };
   }
   _init(){
@@ -76,15 +77,13 @@ export default class extends Base {
           </Card.Body>
         </Card>
 
-        {/* <Card>
-          <Card.Header title="USER" />
+        <Card>
+          <Card.Header title="LOG" />
           <Card.Body>
-            <Button title={'REMOVE PASSWORD'} onPress={this.removePassword.bind(this)} />
-            <Button title={'VERIFY PASSWORD'} onPress={this.verifyPassword.bind(this)} />
-            
+            <Button title={'SHOW LOG'} onPress={this.toLogView.bind(this)} />          
             
           </Card.Body>
-        </Card> */}
+        </Card>
 
     <Text>{this.state.text}</Text>
 
@@ -92,6 +91,10 @@ export default class extends Base {
         
       </ScrollPageView>
     );
+  }
+
+  toLogView(){
+    this._goPath('log_view');
   }
 
   removePassword(){
@@ -194,6 +197,10 @@ export default class extends Base {
 
     // await Layer1.get();
     UI.loading(false);
+
+    Log.bind((log)=>{
+      this.setState({log});
+    })
   }
   
 }

@@ -9,6 +9,7 @@ import Layer1AccountProfile from '../screens/profile/Layer1AccountProfile';
 import PairInfo from '../screens/profile/PairInfo';
 
 import Test from '../screens/profile/test';
+import LogView from '../screens/LogView';
 
 import ScanQrCodeModal from '../screens/modals/ScanQrCodeModal';
 
@@ -81,7 +82,11 @@ export default {
     {
       name: 'pair_info_profile',
       component: PairInfo,
-    }
+    },
+    {
+      name: 'log_view',
+      component: LogView,
+    },
     
   ]
 }

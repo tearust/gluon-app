@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 let _log = [];
 let bind_fn = ()=>{};
-const max = 20;
+const max = 100;
 const F = {
 
   _build(level, tag, log){

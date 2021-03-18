@@ -108,10 +108,18 @@ export default class Layer1 {
   }
 
   async getAccountBalance(account){
-    let { data: { free: previousFree }, nonce: previousNonce } = await this.api.query.system.account(account);
-
-    const free = parseInt(previousFree.toString(), 10) / this.asUnit();
-    return Math.floor(free*10000)/10000;
+    try{
+      Log.d('TT', 11);
+      let { data: { free: previousFree }, nonce: previousNonce } = await this.api.query.system.account(account);
+      Log.d('TT', 22);
+      const free = parseInt(previousFree.toString(), 10) / this.asUnit();
+      Log.d('TT', 33, ' -- ', free);
+      return Math.floor(free*10000)/10000;
+    }catch(e){
+      Log.d('ERROR', e.toString());
+      return 0;
+    }
+    
   }
 
 

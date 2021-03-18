@@ -57,9 +57,9 @@ export default createContainer(class extends Base {
       
         
         <Button type="solid" onPress={this.recharge.bind(this)} containerStyle={{marginTop: 40}} title="TOP UP" />
-        <Button type="outline" onPress={this.createNewAccount.bind(this)} containerStyle={{marginTop: 10}} title="Create New Account" />
+        {/* <Button type="outline" onPress={this.createNewAccount.bind(this)} containerStyle={{marginTop: 10}} title="Create New Account" /> */}
 
-        {this.renderLog()}
+        {/* {this.renderLog()} */}
       </ScrollPageView>
     );
   }
@@ -132,9 +132,9 @@ export default createContainer(class extends Base {
 //     this.props.setLayer1Account(ac);
 //     UI.loading(false);
 
-    Log.bind((log)=>{
-      this.setState({log});
-    })
+    // Log.bind((log)=>{
+    //   this.setState({log});
+    // })
   }
 
   
