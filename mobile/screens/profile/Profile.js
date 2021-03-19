@@ -66,6 +66,7 @@ export default createContainer(class extends Base {
   }
 
   checkPassword(){
+    return true;
     if(!this.props.has_password){
       UI.error('Please Set Password.');
       return false;

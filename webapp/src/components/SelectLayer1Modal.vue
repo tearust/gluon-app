@@ -13,7 +13,7 @@
 
   <div class="center" v-if="!loading">
 
-    <el-select style="width: 400px;" :value="layer1_account ? layer1_account.address : null" @change="layer1ChangeHandler($event)" placeholder="Please select account">
+    <el-select style="width: 400px;" :value="layer1_account ? layer1_account.address : null" @change="layer1ChangeHandler($event)" placeholder="Please select account" no-data-text="Please register account with polkadot extension.">
       <el-option
         v-for="(item, i) in layer1_account_list"
         :key="i"
