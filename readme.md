@@ -57,17 +57,22 @@ pod install
    &nbsp;
 
 4. To create polkadot account, navigate to the extension pop up and click the add button:
+    &nbsp;
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/polkadot-add-account.png" width="320" height="400">
-
+    &nbsp;
+    &nbsp;
 5. A seed or private is generated in the form of 12 secret words.
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/polkadot-seed-private-key.png" width="320" height="400">
-
+    &nbsp;
+    &nbsp;
 6. Once the registration portal appears, select <Allow use on any chain>, set account name and password.
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/polkadot-registration-form.png" width="320" height="400">
-
+    &nbsp;
+    &nbsp;
 7. Check for successful installation as illustrated below
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/polkadot-registration-success.png" width="320" height="400">
-
+    &nbsp;
+    &nbsp;
 8. To run WebApp, reference the Standard Setup Instruction above. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
    &nbsp;
    &nbsp;
@@ -75,22 +80,35 @@ pod install
 9. Navigate to profile tab and select Polkadot account from the dropdown
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="350">
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/select-gluon-account.png" width="850" height="425">
-
+    &nbsp;
+    &nbsp;  
 6. Top up adds 1000 units to balance by clicking top-up button.
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="425">
-
+    &nbsp;
+    &nbsp;
 7. Run mobile application following run instructions in the Standard Setup Instructions section.
-
+    &nbsp;
+    &nbsp;
 8. Navigate to profile tab on the mobile app.
-
+    &nbsp;
+    &nbsp;
 9. Access LAYER1 ACCOUNT
-
+    &nbsp;
+    &nbsp;
 10. TOP UP adds 1000 units to balance
-
+    &nbsp;
+    &nbsp;
 11. On the WebApp profile page, select BIND MOBILE
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="425">
+    &nbsp;
+    &nbsp;
 12. QR code is generated
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/qr-code.png" width="850" height="425">
+    &nbsp;
+    &nbsp;
 13. On MobileApp, navigate to PAIR INFO in Profile tab
-
+    &nbsp;
+    &nbsp;
 14. Scan QR code and click Pair Device button
+    &nbsp;
+    &nbsp;
