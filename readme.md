@@ -1,5 +1,5 @@
 # GLUON
-As part of the TEA-Rust project, the end goal of Gluon is to serve as a replacement for traditional hardware crypto wallets. GLUON pertains to the category: Trust-as-a-Service, relying on distributed storage and execution in TEA nodes to elevate security.
+As part of the TEA project, the end goal of Gluon is to serve as a replacement for traditional hardware crypto wallets. GLUON pertains to the category: Trust-as-a-Service, relying on distributed storage and execution in TEA nodes to elevate security.
 
 For further details please refer to [gluon-docs](https://github.com/tearust/gluon-docs/tree/master/Blog_and_Vlog)
 
@@ -74,7 +74,7 @@ pod install
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="350">  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/select-gluon-account.png" width="800" height="390">  
 
-9. Top up adds 1000 units to balance by clicking top-up button.  
+9. Top up adds 1000 TEA coins to balance by clicking top-up button.  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">  
 
 10. Run mobile application following run instructions in the Standard Setup Instructions section.  
@@ -83,7 +83,7 @@ pod install
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">
 12. Access LAYER1 ACCOUNT  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/profile-tab-mobile.png" width="300" height="600">  
-13. TOP UP adds 1000 units to balance  
+13. TOP UP adds 1000 TEA coins to balance  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/layer-one-mobile.png" width="300" height="600">  
 14. On the WebApp profile page, select BIND MOBILE  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="390">  
