@@ -68,29 +68,31 @@ pod install
 6. Check for successful installation as illustrated below  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/polkadot-registration-success.png" width="320" height="400">  
 
-7. To run WebApp, reference the Standard Setup Instruction above. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)
+7. To run WebApp, reference the Standard Setup Instruction above. Access WebApp at [http://localhost:3000/](http://127.0.0.1:3000/)  
 
 8. Navigate to profile tab and select Polkadot account from the dropdown  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="350">  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/select-gluon-account.png" width="800" height="390">  
 
 9. Top up adds 1000 units to balance by clicking top-up button.  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">  
 
-10. Run mobile application following run instructions in the Standard Setup Instructions section.
+10. Run mobile application following run instructions in the Standard Setup Instructions section.  
 
-11. Navigate to profile tab on the mobile app.
+11. Navigate to profile tab on the mobile app.  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="400" height="800">
+12. Access LAYER1 ACCOUNT  
 
-12. Access LAYER1 ACCOUNT
-
-13. TOP UP adds 1000 units to balance
-
+13. TOP UP adds 1000 units to balance  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">  
 14. On the WebApp profile page, select BIND MOBILE  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="390">
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="390">  
 
 15. QR code is generated  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/qr-code.png" width="700" height="410">
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/qr-code.png" width="700" height="410">  
 
-16. On MobileApp, navigate to PAIR INFO in Profile tab
+16. On MobileApp, navigate to PAIR INFO in Profile tab  
 
-17. Scan QR code and click Pair Device button
+17. Scan QR code and click Pair Device button  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/scan-qr-mobile.png" width="400" height="800">  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/pair-device-mobile.png" width="400" height="800">  
