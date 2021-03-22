@@ -80,11 +80,11 @@ pod install
 10. Run mobile application following run instructions in the Standard Setup Instructions section.  
 
 11. Navigate to profile tab on the mobile app.  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="400" height="800">
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">
 12. Access LAYER1 ACCOUNT  
-
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/profile-tab-mobile.png" width="300" height="600">  
 13. TOP UP adds 1000 units to balance  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/top-up-web.png" width="850" height="425">  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/layer-one-mobile.png" width="300" height="600">  
 14. On the WebApp profile page, select BIND MOBILE  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/web-select-account.png" width="850" height="390">  
 
@@ -94,5 +94,5 @@ pod install
 16. On MobileApp, navigate to PAIR INFO in Profile tab  
 
 17. Scan QR code and click Pair Device button  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/scan-qr-mobile.png" width="400" height="800">  
-    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/pair-device-mobile.png" width="400" height="800">  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/scan-qr-mobile.png" width="300" height="600">  
+    <img src="https://github.com/tearust/gluon-app/blob/main/public/images/pair-device-mobile.png" width="300" height="600">  
