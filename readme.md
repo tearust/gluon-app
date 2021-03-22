@@ -3,7 +3,10 @@ As part of the TEA project, the end goal of Gluon is to serve as a replacement f
 
 For further details please refer to [gluon-docs](https://github.com/tearust/gluon-docs/tree/master/Blog_and_Vlog)
 
-This repo contains runtimes for the GLUON web-app and mobile-app.
+This repo contains runtimes for the GLUON web-app and mobile-app.  
+
+For a video walkthrough, reference:  [![](https://github.com/tearust/gluon-app/blob/main/public/images/gluon-demo.png)](https://www.youtube.com/watch?v=wV4Q1-wTvFE)
+
 
 ## Standard Setup Instructions
 
