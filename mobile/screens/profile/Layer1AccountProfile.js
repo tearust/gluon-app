@@ -173,13 +173,16 @@ export default createContainer(
       const loop = async ()=>{
         try{
           const l = await Layer1.get();
-          console.log(111, l.isConnected)
           const connected = l.isConnected();
-          console.log(111, connected)
           if(this.state.connected !== connected){
             this.setState({
               connected
             });
+
+            if(connected === 2){
+              // TODO 
+              this.props.refreshAccount();
+            }
           }
 
           if(connected === 2){
@@ -199,7 +202,6 @@ export default createContainer(
     }
 
     componentWillUnmount(){
-      console.log(2222);
       this.loop = false;
     }
   },
@@ -213,6 +215,9 @@ export default createContainer(
     return {
       setLayer1Account(account) {
         dispatch(userAction.setLayer1Account(account));
+      },
+      refreshAccount() {
+        dispatch(userAction.refresh());
       },
     };
   },

@@ -41,6 +41,8 @@ pod install
 * Open mobile/ios/mobile.xcworkspace with XCode.
 * Run it with iOS simulator.
 
+More details [visit](./mobile/readme.md).
+
 ## Walkthrough and Instructions
 ### Basic UI Walkthrough
 1. To install the Polkadot{.js} browser extension, please refer to the links below. Available on both Google Chrome and Firefox
