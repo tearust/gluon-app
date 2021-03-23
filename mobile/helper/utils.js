@@ -4,21 +4,14 @@ import EStyle from 'react-native-extended-stylesheet';
 
 _.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
 
-const util = {
-
-};
+const util = {};
 
 const IHSTYLE = {};
-_.set(EStyle, 'set', (key, value)=>{
-	IHSTYLE[key] = (value);
+_.set(EStyle, 'set', (key, value) => {
+  IHSTYLE[key] = value;
 });
-_.set(EStyle, 'get', (key)=>{
-	return IHSTYLE[key] || {};
+_.set(EStyle, 'get', (key) => {
+  return IHSTYLE[key] || {};
 });
 
-export {
-	_,
-	moment,
-	EStyle,
-	util
-};
+export {_, moment, EStyle, util};

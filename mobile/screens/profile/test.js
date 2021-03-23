@@ -17,28 +17,26 @@ import store from '../../store';
 import userTypes from '../../store/type/user';
 import userAction from '../../store/action/user';
 
-
 export default class extends Base {
-  _defineState(){
+  _defineState() {
     return {
       text: '',
       log: [],
     };
   }
-  _init(){
+  _init() {
     this.btc = null;
 
     this.data = {};
   }
 
-  renderMain(p, s){
-
+  renderMain(p, s) {
     const sy = {
       btn: {
         marginBottom: 5,
         marginLeft: 20,
         marginRight: 20,
-      }
+      },
     };
 
     return (
@@ -54,7 +52,11 @@ export default class extends Base {
         <Card>
           <Card.Header title="NATIVE" />
           <Card.Body>
-          <Button style={sy.btn} title={'NATIVE TOUCH ID'} onPress={this.nativeTouchId.bind(this)} />
+            <Button
+              style={sy.btn}
+              title={'NATIVE TOUCH ID'}
+              onPress={this.nativeTouchId.bind(this)}
+            />
           </Card.Body>
         </Card>
 
@@ -63,72 +65,79 @@ export default class extends Base {
           <Card.Body>
             <Button title={'AES'} onPress={this.aesHandler.bind(this)} />
             <Button title={'DES'} onPress={this.desHandler.bind(this)} />
-            
+
           </Card.Body>
         </Card> */}
 
         <Card>
           <Card.Header title="UTILITY" />
           <Card.Body>
-            <Button style={sy.btn} title={'SCAN QRCODE'} onPress={this.openScanQrcodeModal.bind(this)} />
-            <Button style={sy.btn} title={'Set Password Modal'} onPress={this.openPrivatePasswordModal.bind(this, 'set')} />
-            <Button style={sy.btn} title={'Verify Password Modal'} onPress={this.openPrivatePasswordModal.bind(this, 'verify')} />
-            
+            <Button
+              style={sy.btn}
+              title={'SCAN QRCODE'}
+              onPress={this.openScanQrcodeModal.bind(this)}
+            />
+            <Button
+              style={sy.btn}
+              title={'Set Password Modal'}
+              onPress={this.openPrivatePasswordModal.bind(this, 'set')}
+            />
+            <Button
+              style={sy.btn}
+              title={'Verify Password Modal'}
+              onPress={this.openPrivatePasswordModal.bind(this, 'verify')}
+            />
           </Card.Body>
         </Card>
 
         <Card>
           <Card.Header title="LOG" />
           <Card.Body>
-            <Button title={'SHOW LOG'} onPress={this.toLogView.bind(this)} />          
-            
+            <Button title={'SHOW LOG'} onPress={this.toLogView.bind(this)} />
+
           </Card.Body>
         </Card>
 
-    <Text>{this.state.text}</Text>
-
-    
-        
+        <Text>{this.state.text}</Text>
       </ScrollPageView>
     );
   }
 
-  toLogView(){
+  toLogView() {
     this._goPath('log_view');
   }
 
-  removePassword(){
+  removePassword() {
     store.dispatch({
       type: userTypes.set_encrypted_password,
       param: null,
-    })
+    });
   }
 
-  nativeTouchId(){
+  nativeTouchId() {
     TouchID.authenticate('to demo this react-native component', {
       passcodeFallback: true,
-      
-    })
-    .then((success) => {
-      UI.log(success);
-    })
-    .catch(error => {
-      console.error(error);
-      UI.log(error);
-    });
 
+    })
+      .then((success) => {
+        UI.log(success);
+      })
+      .catch((error) => {
+        console.error(error);
+        UI.log(error);
+      });
   }
 
-  async verifyPassword(){
-    try{
+  async verifyPassword() {
+    try {
       const rs = await store.dispatch(userAction.verifyPassword());
       alert(rs);
-    }catch(e){
+    } catch (e){
 
     }
   }
 
-  aesHandler(){
+  aesHandler() {
     const password = 'jacky.li';
     const data = 'hello world';
 
@@ -136,28 +145,27 @@ export default class extends Base {
     this.setState({text: aes_rs});
   }
 
-  desHandler(){
+  desHandler() {
     const password = 'jacky.li';
     const des_rs = crypto.des(password, this.state.text);
     UI.log(des_rs);
   }
 
-  openScanQrcodeModal(){
-    this._goPath('scan_qr_code_modal')
+  openScanQrcodeModal() {
+    this._goPath('scan_qr_code_modal');
   }
 
-
-  btc_sign(){
+  btc_sign() {
     const msg = 'hello world';
     const sig = this.btc.sign(msg);
 
     this.data.sig = sig;
     this.setState({
-      text: `Sig = ${sig}`
+      text: `Sig = ${sig}`,
     });
   }
 
-  btc_verify(){
+  btc_verify() {
     const msg = 'hello world';
 
     const rs = this.btc.verify(this.data.sig, msg);
@@ -165,32 +173,39 @@ export default class extends Base {
     UI.log(rs);
   }
 
-  renderHeader(){
+  renderHeader() {
     return (
-      <Header 
+      <Header
         title="Test"
         leftComponent={null}
         rightComponent={
-          <View style={{flex:1, flexDirection:'row', width:60, top: 10, right: 15, justifyContent:'space-between'}}>
-            
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              width: 60,
+              top: 10,
+              right: 15,
+              justifyContent: 'space-between',
+            }}
+          >
           </View>
         }
       />
-    )
+    );
   }
 
-  async openPrivatePasswordModal(mode){
-    try{
+  async openPrivatePasswordModal(mode) {
+    try {
       const pwd = await UI.showPrivatePasswordModal(mode);
       alert(pwd);
-    }catch(e){
+    } catch (e){
 
     }
-    
+
   }
 
-  async componentDidMount(){
-    
+  async componentDidMount() {
     UI.loading(true);
     this.btc = new Btc('a');
     await this.btc.init();
@@ -198,9 +213,8 @@ export default class extends Base {
     // await Layer1.get();
     UI.loading(false);
 
-    Log.bind((log)=>{
+    Log.bind((log) => {
       this.setState({log});
-    })
+    });
   }
-  
 }

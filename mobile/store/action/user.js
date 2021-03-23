@@ -9,28 +9,28 @@ const C = {
 };
 
 export default {
-  setLayer1Account(account){
+  setLayer1Account(account) {
     return {
       type: types.set_layer1_account,
       param: account,
-    }
+    };
   },
-  setPairInfo(pairInfo){
+  setPairInfo(pairInfo) {
     return {
       type: types.set_pair_info,
       param: pairInfo,
-    }
+    };
   },
 
-  setQrcode(code_json){
+  setQrcode(code_json) {
     return {
       type: types.set_qrcode,
       param: code_json,
-    }
+    };
   },
 
-  refresh(){
-    return async (dispatch)=>{
+  refresh() {
+    return async (dispatch) => {
       const layer1 = await Layer1.get();
       const ac = await layer1.getCurrentAccount();
 
@@ -40,49 +40,51 @@ export default {
           address: ac.address,
           balance: ac.balance,
           mnemonic: ac.mnemonic,
-        }
+        },
       });
 
       const profile = ac.profile;
       dispatch({
         type: types.set_pair_info,
-        param: profile.pair_address ? {
-          address: profile.pair_address,
-          meta: profile.pair_meta,
-        } : null,
-      })
-    }
+        param: profile.pair_address
+          ? {
+              address: profile.pair_address,
+              meta: profile.pair_meta,
+            }
+          : null,
+      });
+    };
   },
 
-  initPassword(){
-    return async(dispatch)=>{
+  initPassword() {
+    return async (dispatch) => {
       const encrypted = await cache.get(C.password_key);
-      if(encrypted){
+      if (encrypted) {
         dispatch({
           type: types.set_encrypted_password,
-          param: encrypted
+          param: encrypted,
         });
       }
-    }
+    };
   },
-  setPassword(){
-    return async (dispatch)=>{
+  setPassword() {
+    return async (dispatch) => {
       const pwd = await UI.showPrivatePasswordModal('set');
-      
+
       const encrypted = crypto.aes(pwd, C.password_val);
       await cache.set(C.password_key, encrypted);
 
       dispatch({
         type: types.set_encrypted_password,
-        param: encrypted
+        param: encrypted,
       });
       return true;
-    }
+    };
   },
-  verifyPassword(){
-    return async (dispatch, getState)=>{
+  verifyPassword() {
+    return async (dispatch, getState) => {
       const {user} = getState();
-      if(!user.encrypted_password){
+      if (!user.encrypted_password) {
         return false;
       }
 
@@ -90,6 +92,6 @@ export default {
       const text = crypto.des(pwd, user.encrypted_password);
 
       return text === C.password_val;
-    }
-  }
+    };
+  },
 };

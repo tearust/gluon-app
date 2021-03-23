@@ -3,7 +3,7 @@ import React from 'react';
 import Styles from '../constants/Styles';
 import UI from '../helper/UI';
 
-export default (props)=>{
+export default (props) => {
   const p = {
     centerComponent: {
       text: props.title || '',
@@ -11,11 +11,9 @@ export default (props)=>{
     },
     // backgroundImage: require('../assets/images/nav_bg.png'),
     backgroundColor: '#35a696',
-    leftComponent: UI.getHeaderBackElement(()=>{
+    leftComponent: UI.getHeaderBackElement(() => {
       UI.goBack();
     }),
   };
-  return (
-    <Header {...p} {...props} />
-  );
-}
+  return <Header {...p} {...props} />;
+};

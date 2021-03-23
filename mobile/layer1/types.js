@@ -4,24 +4,24 @@ const types = {
   TeaPubKey: '[u8; 32]',
   Url: 'Bytes',
   Cid: 'Bytes',
-  TxData: "Bytes",
+  TxData: 'Bytes',
   RefNum: 'H256',
   Result: 'Bytes',
-  ClientPubKey: "Bytes",
-  MultiSigAccount: "Bytes",
-  Signature: "Bytes",
+  ClientPubKey: 'Bytes',
+  MultiSigAccount: 'Bytes',
+  Signature: 'Bytes',
   NodeStatus: {
-    _enum: ['Pending', 'Active', 'Inactive', 'Invalid']
+    _enum: ['Pending', 'Active', 'Inactive', 'Invalid'],
   },
   RaResult: {
     teaId: 'TeaPubKey',
     targetTeaId: 'TeaPubKey',
     isPass: 'bool',
-    targetStatus: 'NodeStatus'
+    targetStatus: 'NodeStatus',
   },
   ManifestInfo: {
     teaId: 'TeaPubKey',
-    manifestCid: 'Cid'
+    manifestCid: 'Cid',
   },
   Node: {
     teaId: 'TeaPubKey',
@@ -32,26 +32,26 @@ const types = {
     createTime: 'BlockNumber',
     updateTime: 'BlockNumber',
     raNodes: 'Vec<(TeaPubKey, bool)>',
-    status: 'NodeStatus'
+    status: 'NodeStatus',
   },
   Model: {
     account: 'AccountId',
     payment: 'u32',
-    cid: 'Bytes'
+    cid: 'Bytes',
   },
   Task: {
     refNum: 'RefNum',
     delegatorTeaId: 'TeaPubKey',
     modelCid: 'Bytes',
     bodyCid: 'Bytes',
-    payment: 'Balance'
+    payment: 'Balance',
   },
   Deposit: {
     delegatorTeaId: 'TeaPubKey',
     delegatorEphemeralId: 'TeaPubKey',
     delegatorSignature: 'Bytes',
     amount: 'Balance',
-    expireTime: 'BlockNumber'
+    expireTime: 'BlockNumber',
   },
   Bill: {
     employer: 'AccountId',
@@ -62,71 +62,71 @@ const types = {
     executorEphemeralId: 'TeaPubKey',
     expiredTime: 'BlockNumber',
     resultCid: 'Cid',
-    bills: 'Vec<(AccountId, Balance)>'
+    bills: 'Vec<(AccountId, Balance)>',
   },
   Data: {
     delegatorEphemeralId: 'TeaPubKey',
     deploymentId: 'Cid',
     cid: 'Cid',
     description: 'Cid',
-    capChecker: 'Cid'
+    capChecker: 'Cid',
   },
   Service: {
     delegatorEphemeralId: 'TeaPubKey',
     deploymentId: 'Cid',
     cid: 'Cid',
-    capChecker: 'Cid'
+    capChecker: 'Cid',
   },
   RuntimeActivity: {
     teaId: 'TeaPubKey',
     cid: 'Option<Cid>',
     ephemeralId: 'TeaPubKey',
-    updateHeight: 'BlockNumber'
+    updateHeight: 'BlockNumber',
   },
   //////////////
   //  gluon   //
   //////////////
   AccountAsset: {
-    accountId: "Cid",
-    btc: "Vec<Cid>",
-    eth: "Vec<Cid>"
- },
+    accountId: 'Cid',
+    btc: 'Vec<Cid>',
+    eth: 'Vec<Cid>',
+  },
   Asset: {
     owner: 'AccountId',
     p2: 'Cid',
     deploymentIds: 'Vec<Cid>',
-    web: "AccountId",
-    app: "AccountId",
-    multiSigAccount: "MultiSigAccount",
-    dataAdhoc: "AccountGenerationDataWithoutP3"
+    web: 'AccountId',
+    app: 'AccountId',
+    multiSigAccount: 'MultiSigAccount',
+    dataAdhoc: 'AccountGenerationDataWithoutP3',
   },
   AccountGenerationDataWithoutP3: {
-    keyType: "Cid",
-    n: "u32",
-    k: "u32",
-    delegatorNonceHash: "Cid",
-    delegatorNonceRsa: "Cid",
-    p1: "Cid"
+    keyType: 'Cid',
+    n: 'u32',
+    k: 'u32',
+    delegatorNonceHash: 'Cid',
+    delegatorNonceRsa: 'Cid',
+    p1: 'Cid',
   },
   SignTransactionData: {
-    dataAdhoc: "TxData",
-    delegatorNonceHash: "Cid",
-    delegatorNonceRsa: "Cid"
+    dataAdhoc: 'TxData',
+    delegatorNonceHash: 'Cid',
+    delegatorNonceRsa: 'Cid',
   },
   SignTransactionTask: {
-    taskId: "Cid",
-    multisigAddress: "Cid",
-    p1Signature: "TxData",
-    taskData: "SignTransactionData"
+    taskId: 'Cid',
+    multisigAddress: 'Cid',
+    p1Signature: 'TxData',
+    taskData: 'SignTransactionData',
   },
   SignTransactionResult: {
-    taskId: "Cid",
-    succeed: 'bool'
+    taskId: 'Cid',
+    succeed: 'bool',
   },
   TransferAssetTask: {
-    from: "Cid",
-    to: "Cid",
-    startHeight: "BlockNumber"
+    from: 'Cid',
+    to: 'Cid',
+    startHeight: 'BlockNumber',
   },
   //////////////
   // multiSig //
@@ -135,7 +135,7 @@ const types = {
     /// The height of the chain at the point in time.
     height: 'BlockNumber',
     /// The index of the extrinsic at the point in time.
-    index: 'u32'
+    index: 'u32',
   },
   Multisig: {
     /// The extrinsic when the multisig operation was opened.
@@ -145,10 +145,10 @@ const types = {
     /// The account who opened it (i.e. the first to approve it).
     depositor: 'AccountId',
     /// The approvals achieved so far, including the depositor. Always sorted.
-    approvals: 'Vec<AccountId>'
+    approvals: 'Vec<AccountId>',
   },
   OpaqueCall: 'Vec<u8>',
-  Weight: 'u64'
-}
+  Weight: 'u64',
+};
 
-module.exports = types
+module.exports = types;

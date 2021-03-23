@@ -1,9 +1,6 @@
 import React from 'react';
-import { PermissionsAndroid, Platform, Text, View } from 'react-native';
+import {PermissionsAndroid, Platform, Text, View} from 'react-native';
 
-
-const F = {
- 
-};
+const F = {};
 
 export default F;

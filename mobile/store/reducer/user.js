@@ -9,13 +9,11 @@ const init_state = {
   qrcode: null,
 
   encrypted_password: null,
-
 };
 
-
-export default (state=init_state, action)=>{
+export default (state = init_state, action) => {
   state = _.clone(state);
-  switch(action.type){
+  switch (action.type) {
     case types.set_layer1_account:
       state.layer1_account = action.param;
       break;

@@ -12,35 +12,36 @@ import Log from './Log';
 
 import {connect} from 'react-redux';
 
+const init = (param) => {
+  param = _.extend(
+    {
+      theme: 'default',
+      themeStyle: {},
+    },
+    param || {},
+  );
 
-const init = (param)=>{
-	param = _.extend({
-		theme : 'default',
-		themeStyle : {}
-	}, param||{});
-
-
-	EStyle.build(_.merge({}, param.themeStyle));
+  EStyle.build(_.merge({}, param.themeStyle));
 };
 
-const createContainer = (ELEM, mapState, mapDispatch)=>{
-	return connect(mapState, mapDispatch)(ELEM);
+const createContainer = (ELEM, mapState, mapDispatch) => {
+  return connect(mapState, mapDispatch)(ELEM);
 };
 
 export {
-	createContainer,
-	Base,
-	_,
-	UI,
-	moment,
-	EStyle,
-	util,
-	init,
-	pubsub,
-	cache,
-	native,
-	request,
-	Btc,
-	crypto,
-	Log,
+  createContainer,
+  Base,
+  _,
+  UI,
+  moment,
+  EStyle,
+  util,
+  init,
+  pubsub,
+  cache,
+  native,
+  request,
+  Btc,
+  crypto,
+  Log,
 };

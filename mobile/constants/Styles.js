@@ -4,12 +4,12 @@ export default {
   flex_center: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   gap: {
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
 
   header_title: {
@@ -19,10 +19,7 @@ export default {
     fontWeight: 'bold',
   },
 
-  ikea: {
-
-  },
-
+  ikea: {},
 
   // antd
   confirm_button: {
@@ -34,8 +31,8 @@ export default {
       defaultRawText: {
         fontSize: 15,
         color: '#fff',
-      }
-    }
+      },
+    },
   },
 
   cancel_button: {
@@ -45,7 +42,7 @@ export default {
     styles: {
       defaultRawText: {
         fontSize: 15,
-      }
-    }
-  }
+      },
+    },
+  },
 };

@@ -5,7 +5,7 @@ export default {
 
   tabIconDefault: '#ccc',
   tabIconSelected: tintColor,
-  
+
   tabBar: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',
@@ -13,7 +13,6 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
-
 
   lightBorderColor: '#e3e3e3',
   darkBorderColor: '#9c9c9c',

@@ -17,14 +17,14 @@ import MockInputModal from '../screens/modals/MockInputModal';
 
 export default {
   init_tab: 'tab_btc',
-  tab : [
+  tab: [
     {
       name: 'tab_btc',
       component: BtcHome,
       options: {
-        title: ({ focused })=><TabBarText text={'Home'} focused={focused} />,
-        tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="home" />
-      }
+        title: ({focused}) => <TabBarText text={'Home'} focused={focused} />,
+        tabBarIcon: ({focused}) => <TabBarIcon focused={focused} name="home" />,
+      },
     },
     // {
     //   name: 'tab_calendar',
@@ -38,29 +38,32 @@ export default {
       name: 'tab_profile',
       component: ProfileHome,
       options: {
-        title: ({ focused })=><TabBarText text={'Profile'} focused={focused} />,
-        tabBarIcon: ({ focused }) => <TabBarIcon size={21} focused={focused} name="user-o" />
-      }
+        title: ({focused}) => <TabBarText text={'Profile'} focused={focused} />,
+        tabBarIcon: ({focused}) => (
+          <TabBarIcon size={21} focused={focused} name="user-o" />
+        ),
+      },
     },
     {
       name: 'tab_test',
       component: Test,
       options: {
-        title: ({ focused })=><TabBarText text={'Test'} focused={focused} />,
-        tabBarIcon: ({ focused }) => <TabBarIcon size={21} focused={focused} name="user-o" />
-      }
+        title: ({focused}) => <TabBarText text={'Test'} focused={focused} />,
+        tabBarIcon: ({focused}) => (
+          <TabBarIcon size={21} focused={focused} name="user-o" />
+        ),
+      },
     },
-
   ],
-  modal : [
+  modal: [
     {
       name: 'scan_qr_code_modal',
       component: ScanQrCodeModal,
       options: {
         headerBackTitle: '',
         headerTitle: '',
-        headerShown: false
-      }
+        headerShown: false,
+      },
     },
     {
       name: 'mock_input_modal',
@@ -68,13 +71,13 @@ export default {
       options: {
         headerBackTitle: '',
         headerTitle: '',
-        headerShown: false
-      }
-    }
-    
+        headerShown: false,
+      },
+    },
+
   ],
 
-  stack : [
+  stack: [
     {
       name: 'layer1_account_profile',
       component: Layer1AccountProfile,
@@ -87,6 +90,6 @@ export default {
       name: 'log_view',
       component: LogView,
     },
-    
-  ]
-}
+
+  ],
+};

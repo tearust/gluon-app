@@ -1,6 +1,6 @@
 import {init, _} from 'helper';
 import Colors from './constants/Colors';
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
 const window = Dimensions.get('window');
 init({
@@ -10,8 +10,6 @@ init({
     $screenHeight: window.height,
 
     $lightBorderColor: Colors.lightBorderColor,
-    $darkBorderColor: Colors.darkBorderColor
-  }
+    $darkBorderColor: Colors.darkBorderColor,
+  },
 });
-
-

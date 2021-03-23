@@ -6,85 +6,85 @@ import Text from '../components/Text';
 import {Icon} from 'react-native-elements';
 
 const F = {
-  loading(f=false){
+  loading(f = false) {
     pubsub.publish('app-loading', f);
   },
   toast: Toast,
 
-  error(str){
+  error(str) {
     Toast.fail(str, 3);
   },
 
-  info(str){
+  info(str) {
     Toast.info(str, 3);
   },
-  success(str='success'){
+  success(str = 'success') {
     Toast.success(str, 1);
   },
 
-  log(x){
+  log(x) {
     alert(JSON.stringify(x));
   },
 
-  soon(){
+  soon() {
     alert('coming soon...');
   },
 
-  confirm(title, text, cb){
+  confirm(title, text, cb) {
     Alert.alert(
       title,
       text,
       [
         {
-          text: "Cancel",
-          style: "cancel"
+          text: 'Cancel',
+          style: 'cancel',
         },
-        { text: "OK", onPress: () => cb() }
+        {text: 'OK', onPress: () => cb()},
       ],
-      { cancelable: false }
+      {cancelable: false},
     );
   },
 
-  getHeaderBackElement(goBackFn){
+  getHeaderBackElement(goBackFn) {
     return (
-      <TouchableOpacity onPress={goBackFn}><View 
-        style={{
-          flexDirection:'row', 
-          width:50, 
-          left: 0, 
-          justifyContent:'space-between',
-          top: 2,
-        }} 
-      >
-        <Icon name="chevron-left" color="#fff" />
-        <Text style={{color:'#fff', top:3}}>Back</Text>
-      </View></TouchableOpacity>
+      <TouchableOpacity onPress={goBackFn}>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: 50,
+            left: 0,
+            justifyContent: 'space-between',
+            top: 2,
+          }}>
+          <Icon name="chevron-left" color="#fff" />
+          <Text style={{color: '#fff', top: 3}}>Back</Text>
+        </View>
+      </TouchableOpacity>
     );
   },
 
-  goBack(){
+  goBack() {
     pubsub.publish('app-go-back');
   },
-  goPath(name){
+  goPath(name) {
     pubsub.publish('app-go-push', name);
   },
-  goTab(name){
+  goTab(name) {
     F.goPath('tab');
     pubsub.publish('app-set-tab', name);
   },
 
-  async showPrivatePasswordModal(mode='set'){
-    return new Promise((resolve, reject)=>{
-      pubsub.publish('app-private-password', true, mode, (text)=>{
-        if(text){
+  async showPrivatePasswordModal(mode = 'set') {
+    return new Promise((resolve, reject) => {
+      pubsub.publish('app-private-password', true, mode, (text) => {
+        if (text) {
           resolve(text);
-        }
-        else{
+        } else {
           reject();
         }
-      })
-    })
-  }
+      });
+    });
+  },
 };
 
 export default F;

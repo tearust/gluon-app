@@ -2,25 +2,25 @@ import _ from 'lodash';
 import forge from 'node-forge';
 
 const F = {
-  stringToU8(str){
+  stringToU8(str) {
     var arr = [];
     for (var i = 0, j = str.length; i < j; ++i) {
       arr.push(str.charCodeAt(i));
     }
-  
+
     var tmpUint8Array = new Uint8Array(arr);
     return tmpUint8Array;
   },
-  u8ToString(u8_arr){
-    var dataString = "";
+  u8ToString(u8_arr) {
+    var dataString = '';
     for (var i = 0; i < u8_arr.length; i++) {
       dataString += String.fromCharCode(u8_arr[i]);
     }
-  
+
     return dataString;
   },
 
-  sha256(data){
+  sha256(data) {
     const tmp = forge.sha256.create();
     tmp.update(data);
     return tmp.digest();
@@ -40,7 +40,7 @@ const F = {
     const key = F.sha256(password).data;
     const decipher = forge.cipher.createDecipher('AES-CBC', key);
     decipher.start({iv: key});
-    decipher.update()
+    decipher.update();
     const encryptedBytes = forge.util.hexToBytes(encrypted_hex);
     const length = encryptedBytes.length;
 
@@ -49,15 +49,16 @@ const F = {
     let decrypted = '';
     do {
       decrypted += decipher.output.getBytes();
-      const buf = forge.util.createBuffer(encryptedBytes.substr(index, chunkSize));
+      const buf = forge.util.createBuffer(
+        encryptedBytes.substr(index, chunkSize),
+      );
       decipher.update(buf);
       index += chunkSize;
-    } while(index < length);
+    } while (index < length);
     decipher.finish();
     decrypted += decipher.output.getBytes();
     return decrypted;
   },
 };
-
 
 export default F;
