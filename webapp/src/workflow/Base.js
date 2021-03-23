@@ -32,12 +32,13 @@ export default class {
   }
 
   async initLayer1() {
-    if (!this.layer1) {
+    if (!_layer1) {
       try {
-        this.layer1 = new Layer1();
-        await this.layer1.init();
+        const tmp_layer1 = new Layer1();
+        await tmp_layer1.init();
 
-        _layer1 = this.layer1;
+        this.layer1 = tmp_layer1;
+        _layer1 = tmp_layer1;
       } catch (e) {
         console.error(e);
       }

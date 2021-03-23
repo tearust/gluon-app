@@ -19,6 +19,8 @@ class Layer1 {
     this.extension = extension;
 
     this.gluon = null;
+
+    this.connected = 0; // 0: disconnected, 1: connecting, 2: connected.
   }
   getDefaultAccount(name='Alice'){
     const keyring = new Keyring({ type: 'sr25519' });
@@ -27,6 +29,12 @@ class Layer1 {
   }
   async init(){
     const provider = new WsProvider(LAYER1_URL);
+
+    if(this.connected !== 0){
+      return;
+    }
+
+    this.connected = 1;
     const api = await ApiPromise.create({
       provider,
       types,
@@ -45,10 +53,16 @@ class Layer1 {
     this.gluon = new gluon(this.api, this.extension, 'browser', {
       layer1_http: LAYER1_HTTP
     });
+
+    this.connected = 2;
   }
 
   buildCallback(key, cb){
     this.callback[key] = cb;
+  }
+
+  isConnected(){
+    return this.connected;
   }
 
   asUnit(){

@@ -24,16 +24,20 @@
 
   
 </el-menu>
+<div class="t-state" :class="'x_'+connected"></div>
 </div>
   
 
 </template>
 <script>
 import {mapGetters} from 'vuex';
+import Base from '../workflow/Base';
+import _ from 'lodash';
 export default {
   data() {
     return {
       activeIndex: null,
+      connected: 0,
     };
   },
   watch: {
@@ -72,6 +76,33 @@ export default {
     },
     
   },
+  mounted(){
+
+    let time = 500;
+
+    const loop = ()=>{
+      try{
+        const wf = new Base();
+        const connected = wf.layer1.isConnected();
+        if(connected !== this.connected){
+          this.connected = connected;
+        }
+        
+        if(this.connected > 0){
+          time = 2000;
+        }
+
+      }catch(e){
+        this.connected = 0;
+      }
+     
+      _.delay(()=>{
+        loop();
+      }, time);
+    };
+
+    loop();
+  }
 }
 </script>
 <style lang="scss">
@@ -109,5 +140,22 @@ export default {
 }
 .el-menu.el-menu--horizontal{
   border-bottom: none;
+}
+
+.t-state{
+  height: 2px;
+  width: 100%;
+  display: block;
+  
+  &.x_0{
+    background: red;
+  }
+  &.x_1{
+    background: yellow;
+  }
+  &.x_2{
+    background: #35a696;
+  }
+
 }
 </style>
