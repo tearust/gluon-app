@@ -117,15 +117,11 @@ const crypto = {
   // rsa encode with RSA_PUBLICKEY from step 1
   rsaEncodeWithRsaPublickKey(data, ras_pub){
     
-    // TODO remove decode64 when runtime tpm privoder done.
-    // const tmp = forge.util.decode64(ras_pub);
     const tmp = ras_pub;
 
     const pub = forge.pki.publicKeyFromPem(tmp);
-console.log(789, data, ras_pub)
     let rs = pub.encrypt(data);
-    // console.log('jjjj', forge.util.encode64(rs));
-    console.log(22, forge.util.encode64(rs));
+    
     return forge.util.encode64(rs);
   },
 

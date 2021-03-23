@@ -5,7 +5,8 @@
   "scripts": {
     "start": "npm run dapp",
     "dapp": "vue-cli-service serve --mode dapp",
-    "build": "vue-cli-service build --mode dapp"
+    "build": "vue-cli-service build --mode dapp",
+    "test": "jest"
   },
   "dependencies": {
     "@polkadot/api": "2.1.1",
@@ -36,6 +37,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "7.2.0",
     "eslint-plugin-vue": "^6.2.2",
+    "jest": "^26.6.3",
     "node-sass": "4.14.1",
     "sass-loader": "8.0.2",
     "sass-resources-loader": "^2.0.0",
