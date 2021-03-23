@@ -9,7 +9,7 @@ import {
 } from 'react-native-elements';
 import {Base, _, UI, createContainer, Log} from 'helper';
 import {ScrollPageView} from '../../components/Page';
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, TouchableOpacity, NativeModules} from 'react-native';
 import Text from '../../components/Text';
 import Header from '../../components/Header';
 import {Progress} from '@ant-design/react-native';
@@ -25,8 +25,10 @@ import userAction from '../../store/action/user';
 export default createContainer(
   class extends Base {
     _defineState() {
+      this.loop = false;
       return {
         log: [],
+        connected: 0,
       };
     }
     _defineStyle() {
@@ -56,12 +58,15 @@ export default createContainer(
             </Card>
           )}
 
-          <Button
-            type="solid"
-            onPress={this.recharge.bind(this)}
-            containerStyle={{marginTop: 40}}
-            title="TOP UP"
-          />
+          {this.state.connected > 1 && 
+            <Button
+              type="solid"
+              onPress={this.recharge.bind(this)}
+              containerStyle={{marginTop: 40}}
+              title="TOP UP"
+            />
+          }
+          
           {/* <Button type="outline" onPress={this.createNewAccount.bind(this)} containerStyle={{marginTop: 10}} title="Create New Account" /> */}
 
           {/* {this.renderLog()} */}
@@ -91,7 +96,51 @@ export default createContainer(
     }
 
     renderHeader() {
-      return <Header title="LAYER1 ACCOUNT" />;
+      const color = [
+        'red',
+        'yellow',
+        '#fff',
+      ][this.state.connected];
+      return (
+        <Header 
+          centerComponent={{
+            text: 'LAYER1 ACCOUNT',
+            style: {
+              color: color,
+              fontSize: 20,
+              fontWeight: 'bold'
+            }
+          }}
+          rightComponent={
+            <TouchableOpacity onPress={this.setUrl.bind(this)}>
+              <Icon
+                type="ionicon"
+                name="options-outline"
+                color="#fff"
+                size={28}
+              />
+            </TouchableOpacity>
+          }
+        />
+      );
+    }
+
+    async setUrl(){
+      const layer1 = await Layer1.get();
+      const url = await layer1.getLayer1Url(); 
+      UI.prompt('Set Layer1 URL', 'Click Ok will restart app.', async (new_url)=>{
+        if(!new_url || !_.startsWith(new_url, 'ws')){
+          UI.error('Invalid layer1 url');
+          return false;
+        }
+
+        try{
+          await layer1.setLayer1Url(new_url);
+          NativeModules.DevSettings.reload();
+        }catch(e){}
+        
+      }, 'plain-text', url);
+   
     }
 
     async recharge() {
@@ -120,15 +169,38 @@ export default createContainer(
     }
 
     async componentDidMount() {
-      //     UI.loading(true);
-      //     const layer1 = await Layer1.get();
-      //     const ac = await layer1.getCurrentAccount();
-      // console.log(11, ac);
-      //     this.props.setLayer1Account(ac);
-      //     UI.loading(false);
-      // Log.bind((log)=>{
-      //   this.setState({log});
-      // })
+      let time = 500;
+      const loop = async ()=>{
+        try{
+          const l = await Layer1.get();
+          console.log(111, l.isConnected)
+          const connected = l.isConnected();
+          console.log(111, connected)
+          if(this.state.connected !== connected){
+            this.setState({
+              connected
+            });
+          }
+
+          if(connected === 2){
+            time = 5000;
+          }
+        }catch(e){
+
+        }
+        
+        _.delay(()=>{
+          this.loop && loop();
+        }, time);
+      };
+
+      this.loop = true;
+      await loop();
+    }
+
+    componentWillUnmount(){
+      console.log(2222);
+      this.loop = false;
     }
   },
   (state) => {

@@ -45,6 +45,23 @@ const F = {
     );
   },
 
+  prompt(title, text, cb, type='plain-text', defaultValue=''){
+    Alert.prompt(
+      title,
+      text,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: (a) => cb(a)},
+      ],
+      type,
+      defaultValue,
+      null,
+    )
+  },
+
   getHeaderBackElement(goBackFn) {
     return (
       <TouchableOpacity onPress={goBackFn}>

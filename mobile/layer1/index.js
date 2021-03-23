@@ -1,13 +1,12 @@
 import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
 import {cryptoWaitReady, mnemonicGenerate} from '@polkadot/util-crypto';
-import {_, UI, Log} from 'helper';
+import {_, UI, Log, cache} from 'helper';
 import types from './types';
 const rpc = require('./rpc');
 
 import BN from 'bn.js';
 import forge from 'node-forge';
 
-import {cache} from 'helper';
 import gluon from './gluon';
 
 const LAYER1_URL = 'ws://139.198.187.91:9944';
@@ -31,14 +30,41 @@ export default class Layer1 {
     this.callback = {};
 
     this.gluon = null;
+
+    this.connected = 0; // 0: disconnected, 1: connecting, 2: connected.
   }
   getDefaultAccount() {
     const keyring = new Keyring({type: 'sr25519'});
     const ac = keyring.addFromUri('//Alice', {name: 'Alice default'});
     return ac;
   }
+  async getLayer1Url(){
+    let url = await cache.get('layer1_url');
+    if(!url){
+      url = LAYER1_URL;
+    }
+    return url;
+  }
+  async setLayer1Url(url){
+    await cache.set('layer1_url', url);
+    this.destroy();
+  }
+  destroy(){
+    this.api = null;
+    this.callback = {};
+    this.gluon = null;
+    this.connected = 0;
+    _layer1 = null;
+  }
   async init() {
-    const provider = new WsProvider(LAYER1_URL);
+    if(this.connected !== 0){
+      return;
+    }
+
+    const url = await this.getLayer1Url();
+    const provider = new WsProvider(url);
+
+    this.connected = 1;
     const api = await ApiPromise.create({
       provider,
       types,
@@ -56,6 +82,12 @@ export default class Layer1 {
     this.gluon = new gluon(this.api, null, 'app');
 
     Log.i(tag, 'connected');
+
+    this.connected = 2;
+  }
+
+  isConnected(){
+    return this.connected;
   }
 
   async mnemonicGenerate() {
