@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run dapp",
     "dapp": "vue-cli-service serve --mode dapp",
-    "build": "vue-cli-service build --mode dapp",
+    "build": "vue-cli-service build",
     "test": "jest"
   },
   "dependencies": {

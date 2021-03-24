@@ -105,3 +105,6 @@ dist
 
 .vscode
 .DS_Store
+
+.layer1
+.data

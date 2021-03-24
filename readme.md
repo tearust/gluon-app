@@ -43,6 +43,16 @@ pod install
 
 More details [visit](./mobile/readme.md).
 
+
+### Test webapp in Local with docker.
+```
+docker-compose up -d
+```
+
+### Test online.
+
+
+
 ## Walkthrough and Instructions
 ### Basic UI Walkthrough
 1. To install the Polkadot{.js} browser extension, please refer to the links below. Available on both Google Chrome and Firefox
