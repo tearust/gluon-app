@@ -49,8 +49,6 @@ More details [visit](./mobile/readme.md).
 docker-compose up -d
 ```
 
-### Test online.
-
 
 
 ## Walkthrough and Instructions
