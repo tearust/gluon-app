@@ -111,3 +111,5 @@ docker-compose up -d
 17. Scan QR code and click Pair Device button  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/scan-qr-mobile.png" width="300" height="600">  
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/pair-device-mobile.png" width="300" height="600">  
+
+Note: Gluon is a project in progress. This is the milestone1 with limited features.  
