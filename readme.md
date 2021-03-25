@@ -30,7 +30,14 @@ More details [visit](./webapp/readme.md).
 
 [Download ios app](http://d.zqapps.com/m63e)
 
-#### Run in local
+If you need download app to test, please find your iphone UDID and email it to liyangwood@gmail.com.
+We can add your device to test list and reply to you. After that please download app from above url to test.
+
+[This is how to grab the UDID](https://www.sourcefuse.com/blog/how-to-find-udid-in-the-new-iphone-xs-iphone-xr-and-iphone-xs-max/)
+
+We will deploy the ios mobile app to Test-Flight in weeks.
+
+#### Run in local with xcode and simulaor
 ```
 cd mobile
 npm i
@@ -42,6 +49,9 @@ pod install
 * Run it with iOS simulator.
 
 More details [visit](./mobile/readme.md).
+
+#### Test with Android
+Coming soon.
 
 
 ### Test webapp in Local with docker.
