@@ -51,7 +51,13 @@ pod install
 More details [visit](./mobile/readme.md).
 
 #### Test with Android
-Coming soon.
+[Download Android App](http://d.firim.pro/trdf)
+
+
+### Online Layer1 Service
+We deploy 2 layer1 service online for test.
+- ws://139.198.187.91:9944 (China Mainland)
+- ws://64.227.49.206:9944 (US)
 
 
 ### Test webapp in Local with docker.
