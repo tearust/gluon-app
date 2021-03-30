@@ -9,7 +9,7 @@ import forge from 'node-forge';
 
 import gluon from './gluon';
 
-const LAYER1_URL = 'ws://139.198.187.91:9944';
+const LAYER1_URL = 'ws://64.227.49.206:9944';
 
 const tag = 'LAYER1';
 
