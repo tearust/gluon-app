@@ -40,6 +40,7 @@ export default class Layer1 {
   }
   async getLayer1Url(){
     let url = await cache.get('layer1_url');
+
     if(!url){
       url = LAYER1_URL;
     }
