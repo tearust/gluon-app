@@ -1,7 +1,7 @@
 import pubsub from './pubsub';
 import React from 'react';
 import {Toast} from '@ant-design/react-native';
-import {View, TouchableOpacity, Alert} from 'react-native';
+import {View, TouchableOpacity, Alert, ToastAndroid} from 'react-native';
 import Text from '../components/Text';
 import {Icon} from 'react-native-elements';
 
