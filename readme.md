@@ -18,6 +18,18 @@ cd webapp
 npm i
 npm start
 ```
+
+If need to change the layer1 service url, please edit webapp/.env.dapp
+```
+NODE_ENV = dapp
+
+#VUE_APP_LAYER1_URL=ws://139.198.187.91:9944
+#VUE_APP_LAYER1_HTTP=http://139.198.187.91:9933
+
+VUE_APP_LAYER1_URL=ws://64.227.49.206:9944
+VUE_APP_LAYER1_HTTP=http://64.227.49.206:9933
+```
+
 Click [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to visit.
 Notice that make sure the node version greater than 14.
 
