@@ -64,7 +64,14 @@ More details [visit](./mobile/readme.md).
 
 #### Test with Android
 [Download Android App](http://d.firim.pro/trdf)
+To build and run android locally
 
+```
+cd gluon-app/mobile
+npm start 
+npm run android
+```
+after pointing JAVA_HOME to java‑11‑openjdk and setting my machine's LAN IP in layer1/index.js
 
 ### Online Layer1 Service
 We deploy 2 layer1 service online for test.
