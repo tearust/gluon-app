@@ -6,6 +6,13 @@ import Base from '../workflow/Base';
 
 Vue.use(Vuex)
 
+const F = {
+  async getLayer1(){
+    const wf = new Base();
+    await wf.init();
+    return wf.layer1;
+  }
+};
 
 const store = new Vuex.Store({
   state: {
@@ -27,6 +34,20 @@ const store = new Vuex.Store({
       delegator_nonce_rsa: null,
 
     },
+
+
+    layer1_asset: {
+      dot: []
+    },
+
+    layer1_recovery: {
+      status: 0,
+      recoverable: null,
+      activeRecoveries: null,
+    },
+    recovery_current: null,
+    // recovery_vouch: null, // vouch for friend
+    recovery_rescuer: null, // rescuer lost account
   },
 
   getters: {
@@ -90,24 +111,58 @@ const store = new Vuex.Store({
 
     set_meta(state, opts){
       state.latest_meta = _.extend(state.latest_meta, opts);
+    },
+    set_layer1_asset(state, asset){
+      if(asset && asset.dot){
+        state.layer1_asset.dot = asset.dot;
+      }
+    },
+    set_recovery_current(state, info){
+      console.log(11, info);
+      state.recovery_current = info;
     }
   },
 
   actions: {
-    async set_asset(store){
+    // async set_asset(store){
+    //   const layer1_account = store.getters.layer1_account;
+    //   if(!layer1_account){
+    //     throw 'Invalid layer1 account';
+    //   }
+
+    //   const address = layer1_account.address;
+
+    //   const layer1 = await F.getLayer1();
+    //   const asset = await layer1.gluon.getAssetsByAddress(address);
+      
+    //   store.commit('set_all_asset', asset);
+
+    // },
+    async set_layer1_asset(store){
       const layer1_account = store.getters.layer1_account;
       if(!layer1_account){
         throw 'Invalid layer1 account';
       }
 
-      const address = layer1_account.address;
-      this.wf = new Base();
-      await this.wf.init();
+      const layer1 = await F.getLayer1();
+      const gluon = layer1.gluon;
 
-      const asset = await this.wf.gluon.getAssetsByAddress(address);
-      
-      store.commit('set_all_asset', asset);
+      const asset = await gluon.getAccountAssets(layer1_account.address);
 
+      store.commit('set_layer1_asset', asset);
+    },
+    async set_recovery_current(state){
+      const layer1_account = store.getters.layer1_account;
+      if(!layer1_account){
+        throw 'Invalid layer1 account';
+      }
+
+      const layer1 = await F.getLayer1();
+      const gluon = layer1.gluon;
+
+      const recoverable = await gluon.recovery_getRecoveryInfo(layer1_account.address);
+
+      store.commit('set_recovery_current', recoverable);
     }
   }
 })

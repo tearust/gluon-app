@@ -92,6 +92,7 @@ export default class {
       store.commit('set_bind_mobile', null);
     }
   }
+
   
 
   

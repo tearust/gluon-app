@@ -6,41 +6,7 @@ import axios from 'axios';
 
 import hash from 'js-sha256';
 
-let ERRORS = `
-InvalidSig,
-	    InvalidNonceSig,
-	    InvalidSignatureLength,
-	    DelegatorNotExist,
-        AccountIdConvertionError,
-        InvalidToAccount,
-        SenderIsNotBuildInAccount,
-        SenderAlreadySigned,
-        TransferAssetTaskTimeout,
-        BrowserTaskALreadyExist,
-        BrowserNonceAlreadyExist,
-        AppBrowserPairAlreadyExist,
-        NonceNotMatch,
-        NonceNotExist,
-        TaskNotMatch,
-        TaskNotExist,
-        KeyGenerationSenderAlreadyExist,
-        KeyGenerationSenderNotExist,
-        KeyGenerationTaskAlreadyExist,
-        KeyGenerationResultExist,
-        SignTransactionTaskAlreadyExist,
-        SignTransactionResultExist,
-        AccountGenerationTaskAlreadyExist,
-        AssetAlreadyExist,
-        AssetNotExist,
-        InvalidAssetOwner,
-        AppBrowserNotPair,
-        AppBrowserPairNotExist,
-        TaskTimeout,
-`;
-
-ERRORS = _.map(ERRORS.split(','), (v)=>{
-  return _.trim(v);
-})
+import layer1_errors from './layer_errors';
 
 const AC_TYPE = {
   'bitcoin_mainnet': 'btc',
@@ -203,16 +169,17 @@ export default class {
   }
   _findError(data){
     let err = false;
-
+    let type_index = -1;
     _.each(data.toJSON(), (p)=>{
       if(!_.isUndefined(_.get(p, 'Module.error'))){
         err = _.get(p, 'Module.error');
+        type_index = _.get(p, 'Module.index');
         return false;
       }
     });
 
     if(err !== false){
-      return ERRORS[err];
+      return _.get(layer1_errors, type_index+'.'+err, 'Not Found in Error definination');
     }
 
     return null;
@@ -457,4 +424,77 @@ export default class {
       });
     });
   }
+
+  async getAccountAssets(address){
+    const rs = await this.api.query.gluon.accountAssets(address);
+
+    return rs.toHuman();
+  }
+
+  async addTestAsset(account, target_address, test_address, key_type){
+    await this.buildAccount(account);
+
+    return this.promisify(async (cb)=>{
+      const tx = this.api.tx.gluon.testAddAccountAsset(target_address, stringToHex(key_type), stringToHex(key_type+'_'+test_address));
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      });
+    })
+  }
+
+
+  // social recovery
+  async recovery_getRecoveryInfo(lost_address){
+    const recoverable_rs = await this.api.query.recovery.recoverable(lost_address);
+    return recoverable_rs.toHuman();
+  }
+  async recovery_getActiveRecoveriesInfo(lost_address, rescuer_address){
+    const activeRecoveries_rs = await this.api.query.recovery.activeRecoveries(lost_address, rescuer_address);
+    return activeRecoveries_rs.toHuman();
+  }
+
+  async recovery_createRecovery(account, friend_list, threshold, delay_period){
+    await this.buildAccount(account);
+    
+    friend_list = _.sortBy(friend_list);
+
+    return this.promisify(async (cb)=>{
+      const tx = this.api.tx.recovery.createRecovery(friend_list, threshold, delay_period);
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      })
+    });
+  }
+
+  async recovery_vouchRecovery(account, lost_address, rescuer_address){
+    await this.buildAccount(account);
+
+    return this.promisify(async (cb)=>{
+      const tx = this.api.tx.recovery.vouchRecovery(lost_address, rescuer_address);
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      })
+    });
+  }
+
+
+  // async recovery_getRecoveryInfo(layer1, lost_address, rescuer_address){
+  //   const api = layer1.getApi();
+  //   const activeRecoveries_rs = await api.query.recovery.activeRecoveries(lost_address, rescuer_address);
+  //   const recoverable_rs = await api.query.recovery.recoverable(lost_address);
+
+  //   const recoverable = recoverable_rs.toHuman();
+  //   const activeRecoveries = activeRecoveries_rs.toHuman();
+
+  //   let can_claim = false;
+  //   if(recoverable && activeRecoveries){
+  //     can_claim = _.size(activeRecoveries.friends) >= recoverable.threshold;
+  //   }
+    
+  //   return {
+  //     recoverable,
+  //     activeRecoveries,
+  //     can_claim,
+  //   }
+  // }
 }

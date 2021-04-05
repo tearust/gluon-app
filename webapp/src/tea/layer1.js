@@ -22,6 +22,13 @@ class Layer1 {
 
     this.connected = 0; // 0: disconnected, 1: connecting, 2: connected.
   }
+  getCurrentBlock(){
+    return new Promise((resolve)=>{
+      this.api.rpc.chain.subscribeNewHeads((header) => {
+        resolve(header);
+      })
+    });
+  }
   getDefaultAccount(name='Alice'){
     const keyring = new Keyring({ type: 'sr25519' });
     const ac = keyring.addFromUri(`//${name}`, { name: `${name} default` });

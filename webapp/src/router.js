@@ -3,9 +3,10 @@ import Router from 'vue-router'
 
 
 import Home from './views/Home';
-import PairWithMobile from './views/PairWithMobile';
+import SocialRecovery from './views/SocialRecovery';
 import LoginAccount from './views/LoginAccount';
 import Test from './views/Test';
+
 
 Vue.use(Router);
 
@@ -27,10 +28,11 @@ let routers = [
     component: LoginAccount,
   },
   {
-    path: '/pair-with-mobile',
-    name: 'pair-with-mobile',
-    component: PairWithMobile
+    path: '/social_recovery',
+    name: 'social_recovery',
+    component: SocialRecovery,
   },
+  
   {
     path: '/test',
     name: 'test',

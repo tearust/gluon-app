@@ -51,6 +51,8 @@
   <div class="tea-card flex-center gray" v-if="!bind_mobile">
     <el-button @click="bindMobileHandler()" :disabled="!layer1_account.address" class="x-only-btn">BIND MOBILE</el-button>
   </div>
+
+  <el-divider />
   
 </div>
 </template>

@@ -53,6 +53,12 @@ a, a:hover, a:focus, button:focus {
 .tea-page{
   text-align: left;
   min-height: calc(100vh - 327px);
+
+  h4.tea-title{
+    margin: 0;
+    font-size: 25px;
+    font-weight: normal;
+  }
   
 
   .el-table__body{

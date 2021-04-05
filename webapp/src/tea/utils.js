@@ -186,6 +186,10 @@ const F = {
 
   publish(msg, data){
     Pubsub.publish(msg, data);
+  },
+
+  async sleep(time){
+    return new Promise((resolve) => setTimeout(resolve, time))
   }
 };
 

@@ -1,16 +1,79 @@
 <template>
-<div class="tea-page h-center">
+<div class="tea-page">
 
-  <CommingSoon />
+  <div class="tea-card" style="margin-bottom: 12px;" v-for="(address, i) in layer1_asset.dot" :key="i">
+    <i class="x-icon el-icon-grape"></i>
+    <div class="x-list">
+      <div class="x-item">
+        <b>TYPE</b>
+        <span>DOT</span>
+      </div>
+      <div class="x-item">
+        <b>ADDRESS</b>
+        <span>{{address}}</span>
+      </div>
+
+    </div>
+
+    <div class="x-right">
+      <el-button class="gray" @click="$alert('coming soon')">REMOVE</el-button>
+    </div>
+  </div>
+
+  <el-divider />
+  <div class="tea-card flex-center">
+    <el-button @click="addTestDotAsset()" class="x-only-btn">Add Test Asset</el-button>
+  </div>
 
 </div>
 </template>
 <script>
 
-import CommingSoon from '../components/ComingSoon';
+import Home from '../workflow/Home';
+import _ from 'lodash';
+import utils from '../tea/utils';
+import { mapGetters, mapState } from 'vuex';
 export default {
   components: {
-    CommingSoon
+    
+  },
+  computed: {
+    ...mapGetters([
+      'layer1_account'
+    ]),
+    ...mapState([
+      'layer1_asset'
+    ])
+  },
+  async mounted(){
+    this.obj = new Home();
+    await this.obj.init();
+
+    await this.refreshAsset();
+
+    
+  },
+  methods: {
+    async refreshAsset(){
+      await this.$store.dispatch('set_layer1_asset');
+    },
+    async addTestDotAsset(){
+      const test_address = prompt('Please input the test asset address');
+      if(!test_address) return false;
+
+      this.$root.loading(true);
+      try{
+        await this.obj.gluon.addTestAsset(this.layer1_account.address, this.layer1_account.address, test_address, 'dot');
+        await utils.sleep(1000);
+ 
+        await this.refreshAsset();
+      }catch(e){
+        this.$alert(e, 'Layer1 Error', {
+          type: 'error'
+        });
+      }
+      this.$root.loading(false);
+    }
   }
 }
 </script>
