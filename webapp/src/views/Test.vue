@@ -16,6 +16,13 @@
   </div>
   <el-divider />
 
+  <el-divider />
+  <el-divider />
+  <h4>LAYER1 - SYSTEM</h4>
+  <div class="t-box">
+    <el-button type="primary" size="small" @click="system_rpcInfo()">System RPC</el-button>
+    
+  </div>
 
 </div>
 </template>
@@ -47,6 +54,7 @@ export default {
     this.$root.loading(true);
 
     this.test = new Test();
+    window.test = this.test;
     await this.test.init();
 
     this.$root.loading(false);
@@ -113,6 +121,30 @@ export default {
     zipJsonSize(){
       const rs = this.test.gluon.zipJsonSize();
       console.log(JSON.stringify(rs));
+    },
+
+    async system_rpcInfo(){
+      const layer1 = this.test.layer1;
+      const rpc = layer1.api.rpc;
+      const version = await rpc.system.version();
+      console.log('version =>', version.toHuman());
+
+      const name = await rpc.system.name();
+      console.log('name =>', name.toHuman());
+
+      const chain = await rpc.system.chain();
+      console.log('chain =>', chain.toHuman());
+
+      const chainType = await rpc.system.chainType();
+      console.log('chainType =>', chainType.toHuman());
+
+      const health = await rpc.system.health();
+      console.log('health =>', health.toHuman());
+
+      const localPeerId = await rpc.system.localPeerId();
+      console.log('localPeerId =>', localPeerId.toHuman());
+
+   
     },
 
 
