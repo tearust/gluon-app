@@ -63,16 +63,11 @@
               <el-button class="x-op" size="small" :disabled="!item.canClaim" @click="cliamRecoveryHandler(item.lost_address)">Confirm</el-button>
             </span>
           </div>
-          <div class="x-item" v-if="item.status === 'success'">
-            <b>RECOVERY TEA</b>
-            <span>
-              <el-button class="x-op" size="small" @click="recoveryAssetToMineHandler(item.lost_address)">Recovery</el-button>
-            </span>
-          </div>
+
           <div class="x-item" v-if="item.status === 'success'">
             <b>RECOVERY ASSET</b>
             <span>
-              <el-button class="x-op" size="small" @click="$alert('coming soon')">Recovery</el-button>
+              <el-button class="x-op" size="small" @click="recoveryAssetToMineHandler(item.lost_address)">Recovery</el-button>
             </span>
           </div>
           
@@ -423,6 +418,7 @@ export default {
       this.$root.loading(false);
     },
 
+
     async recoveryAssetToMineHandler(lost_address){
       this.$root.loading(true);
       try{
@@ -435,7 +431,7 @@ export default {
         this.$root.showError(e);
       }
       this.$root.loading(false);
-    }
+    },
   }
 }
 </script>

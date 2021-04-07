@@ -511,24 +511,13 @@ export default class {
     const me_address = account;
     await this.buildAccount(account);
 
-    let old_token = await this.layer1.getRealAccountBalance(lost_address);
-    const unit = this.layer1.asUnit() * 1;
-    
-    if(old_token > unit){
-      old_token -= unit;
-    }
-    else{
-      throw 'Has no token to recovery.';
-    }
-    
     return this.promisify(async (cb)=>{
-      const token_tx = this.api.tx.balances.transfer(me_address, bnToBn(old_token.toString()));
-      const tx = this.api.tx.recovery.asRecovered(lost_address, token_tx);
+      const asset_tx = this.api.tx.gluon.testTransferAllAsset(lost_address, me_address);
+      const tx = this.api.tx.recovery.asRecovered(lost_address, asset_tx);
       await tx.signAndSend(account, (param)=>{
         this._transactionCallback(param, cb);
       });
     });
-    
   }
 
   async recovery_removeRecovery(account, lost_address){
