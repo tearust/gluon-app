@@ -63,7 +63,7 @@ export default {
 
       this.$root.loading(true);
       try{
-        await this.obj.gluon.addTestAsset(this.layer1_account.address, this.layer1_account.address, test_address, 'dot');
+        await this.obj.gluon.addTestAsset(this.layer1_account.address, test_address, 'dot');
         await utils.sleep(1000);
  
         await this.refreshAsset();

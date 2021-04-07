@@ -84,7 +84,7 @@
   </div>
 
   <div>
-    Rescuer lost layer1 account.
+    
     <ul></ul>
   </div>
   <div class="tea-card flex-center">

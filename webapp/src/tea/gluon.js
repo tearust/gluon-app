@@ -184,7 +184,7 @@ export default class {
     });
 
     if(err !== false){
-      return _.get(layer1_errors, type_index+'.'+err, 'Not Found in Error definination');
+      return _.get(layer1_errors, type_index+'.'+err, 'Not Found in Error definination with [index: '+type_index+', error: '+err+']');
     }
 
     return null;
@@ -436,11 +436,11 @@ export default class {
     return rs.toHuman();
   }
 
-  async addTestAsset(account, target_address, test_address, key_type){
+  async addTestAsset(account, test_address, key_type){
     await this.buildAccount(account);
 
     return this.promisify(async (cb)=>{
-      const tx = this.api.tx.gluon.testAddAccountAsset(target_address, stringToHex(key_type), stringToHex(key_type+'_'+test_address));
+      const tx = this.api.tx.gluon.testAddAccountAsset(stringToHex(key_type), stringToHex(key_type+'_'+test_address));
       await tx.signAndSend(account, (param)=>{
         this._transactionCallback(param, cb);
       });
@@ -512,7 +512,7 @@ export default class {
     await this.buildAccount(account);
 
     return this.promisify(async (cb)=>{
-      const asset_tx = this.api.tx.gluon.testTransferAllAsset(lost_address, me_address);
+      const asset_tx = this.api.tx.gluon.testTransferAllAsset(me_address);
       const tx = this.api.tx.recovery.asRecovered(lost_address, asset_tx);
       await tx.signAndSend(account, (param)=>{
         this._transactionCallback(param, cb);
