@@ -148,3 +148,15 @@ docker-compose up -d
     <img src="https://github.com/tearust/gluon-app/blob/main/public/images/pair-device-mobile.png" width="300" height="600">  
 
 Note: Gluon is a project in progress. This is the milestone1 with limited features.  
+
+
+## Workflow description
+#### Pair devices with web and mobile (M1)
+- Web send pair request tx.
+The tx name is **browser_send_nonce** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-1/gluon/src/lib.rs)
+- Mobile receive the request info from QR-Code and send the response tx.
+The tx name is **send_registration_application** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-1/gluon/src/lib.rs)
+- Web can unpair with tx.
+The tx name is **unpair_app_browser** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-1/gluon/src/lib.rs)
+
+
