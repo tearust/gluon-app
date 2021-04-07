@@ -1,5 +1,9 @@
 import _ from 'lodash';
-import { stringToHex, stringToU8a, u8aToHex, u8aToString, hexToU8a, promisify, u8aToBuffer, hexToString} from '@polkadot/util';
+import { 
+  stringToHex, stringToU8a, u8aToHex, u8aToString, hexToU8a, 
+  promisify, u8aToBuffer, hexToString, bnToBn,
+} 
+from '@polkadot/util';
 import { decodeAddress, encodeAddress } from '@polkadot/util-crypto';
 import forge from 'node-forge';
 import axios from 'axios';
@@ -13,7 +17,7 @@ const AC_TYPE = {
 };
 
 export default class {
-  constructor(api, extension, env=null, opts){
+  constructor(api, layer1, extension, env=null, opts){
     this.api = api;
     this.callback = {};
     this.extension = extension;
@@ -21,6 +25,7 @@ export default class {
     this.opts = opts || {};
 
     this.env = env || 'browser';
+    this.layer1 = layer1;
 
     this.api.query.system.events((events) => {
       this._handle_events(events)
@@ -452,6 +457,10 @@ export default class {
     const activeRecoveries_rs = await this.api.query.recovery.activeRecoveries(lost_address, rescuer_address);
     return activeRecoveries_rs.toHuman();
   }
+  async recovery_getProxy(rescuer_address){
+    const rs = await this.api.query.recovery.proxy(rescuer_address);
+    return rs.toHuman();
+  }
 
   async recovery_createRecovery(account, friend_list, threshold, delay_period){
     await this.buildAccount(account);
@@ -477,24 +486,65 @@ export default class {
     });
   }
 
+  async recovery_initiateRecovery(account, lost_address){
+    await this.buildAccount(account);
+    return this.promisify(async (cb)=>{
+      const tx = this.api.tx.recovery.initiateRecovery(lost_address);
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      })
+    });
+  }
 
-  // async recovery_getRecoveryInfo(layer1, lost_address, rescuer_address){
-  //   const api = layer1.getApi();
-  //   const activeRecoveries_rs = await api.query.recovery.activeRecoveries(lost_address, rescuer_address);
-  //   const recoverable_rs = await api.query.recovery.recoverable(lost_address);
+  async recovery_claimRecovery(account, lost_address){
+    await this.buildAccount(account);
 
-  //   const recoverable = recoverable_rs.toHuman();
-  //   const activeRecoveries = activeRecoveries_rs.toHuman();
+    return this.promisify(async (cb)=>{
+      const tx = this.api.tx.recovery.claimRecovery(lost_address);
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      });
+    });
+  }
 
-  //   let can_claim = false;
-  //   if(recoverable && activeRecoveries){
-  //     can_claim = _.size(activeRecoveries.friends) >= recoverable.threshold;
-  //   }
+  async recovery_transferAssetToRescuer(account, lost_address){
+    const me_address = account;
+    await this.buildAccount(account);
+
+    let old_token = await this.layer1.getRealAccountBalance(lost_address);
+    const unit = this.layer1.asUnit() * 1;
     
-  //   return {
-  //     recoverable,
-  //     activeRecoveries,
-  //     can_claim,
-  //   }
-  // }
+    if(old_token > unit){
+      old_token -= unit;
+    }
+    else{
+      throw 'Has no token to recovery.';
+    }
+    
+    return this.promisify(async (cb)=>{
+      const token_tx = this.api.tx.balances.transfer(me_address, bnToBn(old_token.toString()));
+      const tx = this.api.tx.recovery.asRecovered(lost_address, token_tx);
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      });
+    });
+    
+  }
+
+  async recovery_removeRecovery(account, lost_address){
+    await this.buildAccount(account);
+
+    return this.promisify(async (cb)=>{
+      let tx = this.api.tx.recovery.removeRecovery();
+      if(lost_address){
+        tx = this.api.tx.recovery.asRecovered(lost_address, tx);
+      }
+      await tx.signAndSend(account, (param)=>{
+        this._transactionCallback(param, cb);
+      });
+    });
+  }
+
+
+  
 }

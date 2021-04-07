@@ -57,7 +57,7 @@ class Layer1 {
       this.handle_events(events)
     });
 
-    this.gluon = new gluon(this.api, this.extension, 'browser', {
+    this.gluon = new gluon(this.api, this, this.extension, 'browser', {
       layer1_http: LAYER1_HTTP
     });
 
@@ -80,10 +80,16 @@ class Layer1 {
     return unit;
   }
 
-  async getAccountBalance(account){
+  async getRealAccountBalance(account){
     let { data: { free: previousFree }, nonce: previousNonce } = await this.api.query.system.account(account);
 
-    const free = parseInt(previousFree.toString(), 10) / this.asUnit();
+    return parseInt(previousFree.toString(), 10);
+  }
+
+  async getAccountBalance(account){
+    const real_balance = await this.getRealAccountBalance(account);
+
+    const free = real_balance / this.asUnit();
     return Math.floor(free*10000)/10000;
   }
 

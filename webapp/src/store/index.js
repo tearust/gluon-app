@@ -14,8 +14,8 @@ const F = {
   }
 };
 
-const store = new Vuex.Store({
-  state: {
+const initState = ()=>{
+  return {
     layer1_account: {
       name: null,
       address: null,
@@ -47,8 +47,19 @@ const store = new Vuex.Store({
     },
     recovery_current: null,
     // recovery_vouch: null, // vouch for friend
-    recovery_rescuer: null, // rescuer lost account
-  },
+
+    // rescuer lost account
+    // {
+    //   config: null, 
+    //   info: null,
+    //   lost_address: null,
+    // }, 
+    recovery_rescuer: [],
+  }
+};
+
+const store = new Vuex.Store({
+  state: initState(),
 
   getters: {
     layer1_account: (state)=>{
@@ -72,7 +83,15 @@ const store = new Vuex.Store({
         address: account.address,
         balance: account.balance,
       };
+      
       localStorage.setItem('tea-layer1-account', JSON.stringify(state.layer1_account));
+    },
+
+    reset_state(state){
+      const init_state = initState();
+      Object.keys(init_state).forEach(key => {
+        state[key] = init_state[key]
+      })
     },
 
     set_bind_mobile(state, opts){
@@ -118,9 +137,46 @@ const store = new Vuex.Store({
       }
     },
     set_recovery_current(state, info){
-      console.log(11, info);
+      console.log('recovery_current', info);
       state.recovery_current = info;
-    }
+    },
+    set_recovery_rescuer(state, data){
+      const {lost_address, info, config, proxy} = data;
+      console.log('recovery_rescuer', lost_address, info, config, proxy);
+
+      if(!lost_address){
+        return;
+      }
+
+      let state_data = {
+        lost_address, info, config
+      };
+
+      if(info && config){
+        const process = [];
+        _.each(config.friends, (friend)=>{
+          process.push([
+            friend, 
+            _.includes(info.friends, friend),
+          ])
+        });
+        const canClaim = _.size(info.friends) >= config.threshold;
+
+        state_data.process = process;
+        state_data.canClaim = canClaim;
+        state_data.threshold = config.threshold;
+
+        state_data.status = proxy===lost_address ? 'success' : 'started';
+
+        const index = _.findIndex(state.recovery_rescuer, (item)=>item.lost_address===lost_address);
+        if(index !== -1){
+          state.recovery_rescuer[index] = state_data
+        }
+        else{
+          state.recovery_rescuer.push(state_data);
+        }
+      }      
+    },
   },
 
   actions: {
@@ -151,7 +207,7 @@ const store = new Vuex.Store({
 
       store.commit('set_layer1_asset', asset);
     },
-    async set_recovery_current(state){
+    async set_recovery_current(store){
       const layer1_account = store.getters.layer1_account;
       if(!layer1_account){
         throw 'Invalid layer1 account';
@@ -163,6 +219,29 @@ const store = new Vuex.Store({
       const recoverable = await gluon.recovery_getRecoveryInfo(layer1_account.address);
 
       store.commit('set_recovery_current', recoverable);
+    },
+    async set_recovery_rescuer(store, lost_address){
+      const layer1_account = store.getters.layer1_account;
+      if(!layer1_account){
+        throw 'Invalid layer1 account';
+      }
+
+      if(!lost_address) return;
+
+      const layer1 = await F.getLayer1();
+      const gluon = layer1.gluon;
+
+      const config = await gluon.recovery_getRecoveryInfo(lost_address);
+      const info = await gluon.recovery_getActiveRecoveriesInfo(lost_address, layer1_account.address);
+      const proxy = await gluon.recovery_getProxy(layer1_account.address);
+
+      store.commit('set_recovery_rescuer', {
+        lost_address, 
+        info, 
+        config,
+        proxy,
+      });
+      
     }
   }
 })

@@ -1,7 +1,7 @@
 <template>
 <div class="tea-page">
 
-  
+  <!-- Set recovery -->
   <div v-if="!recovery_current">
     Click button to set social recovery for current layer1 account.
     <ul>
@@ -27,25 +27,79 @@
       </div>
 
       <div class="x-right">
-        <el-button class="gray" @click="$alert('coming soon')">REMOVE</el-button>
+        <el-button class="gray" @click="removeCurrentRecoveryConfigHandler()">REMOVE</el-button>
       </div>
     </div>
   </div>
 
   <el-divider />
 
-  <div v-if="!recovery_rescuer">
+  <!-- Rescuer -->
+
+  <div v-if="recovery_rescuer.length > 0">
+
+    <div v-for="(item, i) in recovery_rescuer" :key="i" style="margin-top: 15px;">
+      <div class="tea-card" style="margin-bottom: 12px;">
+        <i class="x-icon el-icon-cold-drink"></i>
+        <div class="x-list">
+
+          <div class="x-item" style="">
+            <b>STATUS</b>
+            <span>{{item.status}}</span>
+          </div>
+          <div class="x-item" style="margin-bottom: 5px;">
+            <b>THRESHOLD</b>
+            <span>{{item.threshold}}</span>
+          </div>
+
+          <div class="x-item" v-for="(x, j) in item.process" :key="j">
+            <b>{{x[0]}}</b>
+            <span>{{x[1]?'Vouched':''}}</span>
+          </div>
+
+          <div class="x-item" v-if="item.status !== 'success'">
+            <b>Claim Account</b>
+            <span>
+              <el-button class="x-op" size="small" :disabled="!item.canClaim" @click="cliamRecoveryHandler(item.lost_address)">Confirm</el-button>
+            </span>
+          </div>
+          <div class="x-item" v-if="item.status === 'success'">
+            <b>RECOVERY TEA</b>
+            <span>
+              <el-button class="x-op" size="small" @click="recoveryAssetToMineHandler(item.lost_address)">Recovery</el-button>
+            </span>
+          </div>
+          <div class="x-item" v-if="item.status === 'success'">
+            <b>RECOVERY ASSET</b>
+            <span>
+              <el-button class="x-op" size="small" @click="$alert('coming soon')">Recovery</el-button>
+            </span>
+          </div>
+          
+
+        </div>
+
+        <div class="x-right">
+          <el-button @click="refreshForLost()">REFRESH</el-button>
+          <el-button class="gray" @click="$alert('coming soon')">REMOVE</el-button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div>
     Rescuer lost layer1 account.
     <ul></ul>
   </div>
-  <div class="tea-card flex-center" v-if="!recovery_rescuer">
-    <el-button @click="set_current_modal.visible=true" class="x-only-btn">Rescuer Lost Account</el-button>
+  <div class="tea-card flex-center">
+    <el-button @click="rescuer_modal.visible=true" class="x-only-btn">Rescuer Lost Account</el-button>
   </div>
 
   <el-divider />
 
   
-  
+  <!-- Vouch -->
   <div>
     Vouch for friend.
     <ul></ul>
@@ -116,6 +170,31 @@
 
   </el-dialog>
 
+  <el-dialog
+    title="Rescuer Lost Account"
+    :visible.sync="rescuer_modal.visible"
+    width="900"
+    :close-on-click-modal="false"
+    custom-class="tea-modal"
+  >
+
+    <p style="margin:0 15px 40px; font-size:15px;">
+      Please ensure each item you input are correct.
+    </p>
+    <el-form :model="rescuer_modal.form" :rules="rescuer_modal.rules" ref="rescuer_modal" label-width="120px">
+      <el-form-item label="Lost Address" prop="lost_address">
+        <el-input v-model="rescuer_modal.form.lost_address"></el-input>
+      </el-form-item>
+      
+    </el-form>
+
+    <span slot="footer" class="dialog-footer">
+      <el-button @click="rescuer_modal.visible = false">Close</el-button>
+      <el-button type="primary" @click="submit_rescuerAccount()">Submit</el-button>
+    </span>
+
+  </el-dialog>
+
   
 
 </div>
@@ -162,6 +241,17 @@ export default {
             { required: true },
           ]
         }
+      },
+      rescuer_modal: {
+        visible: false,
+        form: {
+          lost_address: '',
+        },
+        rules: {
+          lost_address: [
+            { required: true },
+          ],
+        }
       }
     };
   },
@@ -179,11 +269,38 @@ export default {
     await this.obj.init();
 
     await this.refresh();
-    
+    await this.refreshForLost();
   },
   methods: {
+    getLostCacheKey(){
+      return 'lost_address_list_'+this.layer1_account.address;
+    },
     async refresh(){
       await this.$store.dispatch('set_recovery_current');
+    },
+    async refreshForLost(throw_error=false){
+      const key = this.getLostCacheKey();
+      const lost_list = utils.cache.get(key);
+      if(!lost_list) return false;
+
+      this.$root.loading(true);
+      const new_list = [];
+      utils.cache.remove(key);
+      for(let i=0, len=lost_list.length; i<len; i++){
+        try{
+          await this.$store.dispatch('set_recovery_rescuer', lost_list[i]);
+          new_list.push(lost_list[i]);
+          utils.cache.put(key, new_list);
+        }catch(e){
+          if(throw_error){
+            throw e;
+          }
+        }
+      }
+
+      await utils.sleep(500);
+      console.log(11, this.recovery_rescuer);
+      this.$root.loading(false);
     },
     async setSocialRecoveryForCurrent(){
       const ref = this.$refs['set_current_modal'];
@@ -197,7 +314,7 @@ export default {
 
         // create recovery
         const friend_list = [friend_address_1, friend_address_2, friend_address_3];
-        await this.obj.gluon.recovery_createRecovery(this.layer1_account.address, friend_list, 3, 100);
+        await this.obj.gluon.recovery_createRecovery(this.layer1_account.address, friend_list, 2, 100);
         await utils.sleep(2000);
         await this.refresh();
 
@@ -223,7 +340,7 @@ export default {
       try{
         await ref.validate();
 
-        const {lost_address, rescuer_address} = this.set_current_modal.form;
+        const {lost_address, rescuer_address} = this.vouch_modal.form;
         console.log(11, lost_address, rescuer_address);
 
         // vouch recovery
@@ -239,6 +356,84 @@ export default {
         this.$root.showError(msg);
       }
 
+      this.$root.loading(false);
+    },
+
+    async submit_rescuerAccount(){
+      const key = this.getLostCacheKey();
+      const ref = this.$refs['rescuer_modal'];
+
+      this.$root.loading(true);
+      try{
+        await ref.validate();
+
+        const {lost_address} = this.rescuer_modal.form;
+        console.log(11, lost_address);
+
+        const lost_list = utils.cache.get(key) || [];
+        if(!_.includes(lost_list, lost_address)){
+          lost_list.push(lost_address);
+          utils.cache.put(key, lost_list);
+
+        }
+
+        // initiateRecovery
+        await this.obj.gluon.recovery_initiateRecovery(this.layer1_account.address, lost_address);
+        await utils.sleep(2000);
+
+        await this.refreshForLost(true);
+        this.$message.success('success');
+
+      }catch(e){
+        const msg = !e ? 'Invalid Input' : e.toString();
+        this.$root.showError(msg);
+
+      }
+
+      ref.resetFields();
+      this.rescuer_modal.visible = false;
+      this.$root.loading(false);
+    },
+
+    async cliamRecoveryHandler(lost_address){
+      this.$root.loading(true);
+      try{
+        await this.obj.gluon.recovery_claimRecovery(this.layer1_account.address, lost_address);
+        await utils.sleep(2000);
+
+        await this.refreshForLost(true);
+        this.$message.success('success');
+      }catch(e){
+        this.$root.showError(e);
+      }
+      this.$root.loading(false);
+    },
+
+    async removeCurrentRecoveryConfigHandler(){
+      this.$root.loading(true);
+      try{
+        await this.obj.gluon.recovery_removeRecovery(this.layer1_account.address);
+        await utils.sleep(2000);
+
+        await this.refresh(true);
+        this.$message.success('success');
+      }catch(e){
+        this.$root.showError(e);
+      }
+      this.$root.loading(false);
+    },
+
+    async recoveryAssetToMineHandler(lost_address){
+      this.$root.loading(true);
+      try{
+        await this.obj.gluon.recovery_transferAssetToRescuer(this.layer1_account.address, lost_address);
+        await utils.sleep(2000);
+
+        await this.refreshForLost(true);
+        this.$message.success('success');
+      }catch(e){
+        this.$root.showError(e);
+      }
       this.$root.loading(false);
     }
   }

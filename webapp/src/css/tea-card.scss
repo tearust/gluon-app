@@ -58,6 +58,17 @@
         background-color: yellow;
       }
     }
+
+    .x-op{
+      height: 24px;
+      border-color: $mainColor;
+      line-height: 22px;
+      padding: 0 12px;
+      color: #fff;
+      background: $mainColor;
+      font-size: 13px;
+
+    }
   }
 
   .x-right{

@@ -76,6 +76,9 @@ export default class {
     const balance = await this.layer1.getAccountBalance(layer1_account.address);
     const info = await this.gluon.getAccountProfile(layer1_account.address);
 
+    // reset all state
+    store.commit('reset_state');
+
     store.commit('set_account', {
       balance,
       address: layer1_account.address,

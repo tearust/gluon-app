@@ -29,6 +29,9 @@ const cache = {
       return d;
     }
   },
+  remove(id){
+    localStorage.removeItem(id);
+  },
 
   saveNode(node) {
     cache.put('select-node', node);

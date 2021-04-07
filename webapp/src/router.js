@@ -31,6 +31,9 @@ let routers = [
     path: '/social_recovery',
     name: 'social_recovery',
     component: SocialRecovery,
+    meta: {
+      needLogin: true
+    }
   },
   
   {
