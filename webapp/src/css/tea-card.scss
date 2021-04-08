@@ -41,6 +41,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1px dotted #d9d9d9;
+    padding: 4px 0;
 
     .x-status{
       display: block;
@@ -68,6 +70,11 @@
       background: $mainColor;
       font-size: 13px;
 
+      &:disabled{
+        color: #9c9c9c;
+        border-color: #c9c9c9;
+        background-color: #eee;
+      }
     }
   }
 

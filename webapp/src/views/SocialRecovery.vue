@@ -116,7 +116,7 @@
   >
 
     <p style="margin:0 15px 40px; font-size:15px;">
-      Input your 3 friends layer1 address here. when you need to recovery your account, please contact at least 2 friends to vouch for you, Tea Layer1 will recovery the account to your new account.
+      Input your 3 friends layer1 address here. when you need to recovery your account, please contact at least 2 friends to vouch for you, Tea Layer1 will recovery the account assets to your new account.
     </p>
     <el-form :model="set_current_modal.form" :rules="set_current_modal.rules" ref="set_current_modal" label-width="80px">
       <el-form-item label="Friend 1" prop="friend_address_1">
@@ -294,7 +294,7 @@ export default {
       }
 
       await utils.sleep(500);
-      console.log(11, this.recovery_rescuer);
+      // console.log(11, this.recovery_rescuer);
       this.$root.loading(false);
     },
     async setSocialRecoveryForCurrent(){
