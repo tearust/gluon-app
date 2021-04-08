@@ -394,7 +394,7 @@ export default {
       this.$root.loading(true);
       try{
         await this.obj.gluon.recovery_claimRecovery(this.layer1_account.address, lost_address);
-        await utils.sleep(2000);
+        await utils.sleep(3000);
 
         await this.refreshForLost(true);
         this.$message.success('success');
