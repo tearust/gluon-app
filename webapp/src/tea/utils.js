@@ -5,6 +5,11 @@ import proto from './proto';
 import types from './types';
 import Pubsub from 'pubsub-js';
 
+import tearust_utils_info from 'tearust_utils/packageInfo';
+import * as tearust_utils from 'tearust_utils';
+import * as tearust_layer1 from 'tearust_layer1';
+import tearust_layer1_info from 'tearust_layer1/packageInfo';
+
 import forge from 'node-forge';
 import * as polk_util from '@polkadot/util';
 
@@ -16,7 +21,12 @@ const bootstrapNodesList = ()=>{
     '0x2754d7e9c73ced5b302e12464594110850980027f8f83c469e8145eef59220b6': 'Charlie',
   };
 }
-
+window.tearust = {
+  utils: tearust_utils,
+  utils_info: tearust_utils_info,
+  layer1: tearust_layer1,
+  layer1_info: tearust_layer1_info,
+};
 const cache = {
   put(id, data) {
     localStorage.setItem(id, JSON.stringify(data));
