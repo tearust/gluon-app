@@ -10,7 +10,6 @@ import Test from './views/Test';
 
 Vue.use(Router);
 
-import utils from './tea/utils';
 
 
 let routers = [

@@ -58,7 +58,8 @@
 </template>
 <script>
 import SettingAccount from '../workflow/SettingAccount';
-import _ from 'lodash';
+import {_} from 'tearust_utils';
+import {helper} from 'tearust_layer1';
 import { mapGetters, mapState } from 'vuex'
 export default {
   data(){
@@ -94,11 +95,12 @@ export default {
 
     async bindMobileHandler(){
       const address = this.layer1_account.address;
-      const gluon = this.wf.gluon;
+      const layer1_instance = this.wf.getLayer1Instance();
+      const gluon_pallet = layer1_instance.getGluonPallet();
       try{
-        const nonce = gluon.getRandomNonce();
+        const nonce = helper.getRandomNonce();
         this.$root.loading(true);
-        await gluon.sendNonceForPairMobileDevice(nonce, address);
+        await gluon_pallet.sendNonceForPairMobileDevice(nonce, address);
 
         const json = {
           nonce,
@@ -107,7 +109,9 @@ export default {
         };
 
         // start listening
-        this.wf.gluon.buildCallback('RegistrationApplicationSucceed', (address1, address2)=>{
+        layer1_instance.buildCallback('gluon.RegistrationApplicationSucceed', (data)=>{
+          const address1 = helper.encodeAddress(data[0]);
+          const address2 = helper.encodeAddress(data[1]);
           if(_.includes([address1, address2], address)){
             this.wf.closeQrCodeModal();
             this.refreshAccount();
@@ -131,7 +135,8 @@ export default {
 
     async rechargeHandler(){
       this.$root.loading(true);
-      await this.wf.layer1.faucet(this.layer1_account.address);
+      const layer1_instance = this.wf.getLayer1Instance();
+      await layer1_instance.faucet(this.layer1_account.address);
       this.refreshAccount();
       
       this.$root.loading(false);
@@ -157,7 +162,9 @@ export default {
       this.$root.loading(true);
 
       try{
-        await this.wf.gluon.unpair(this.layer1_account.address);
+        const layer1_instance = this.wf.getLayer1Instance();
+        const gluon_pallet = layer1_instance.getGluonPallet();
+        await gluon_pallet.unpair(this.layer1_account.address);
         await this.refreshAccount();
 
       }catch(e){

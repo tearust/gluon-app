@@ -1,5 +1,4 @@
-import axios from 'axios';
-import _ from 'lodash';
+import {_, axios} from 'tearust_utils';
 import utils from './utils';
 
 let _axios = null;

@@ -30,7 +30,7 @@
 <script>
 
 import Home from '../workflow/Home';
-import _ from 'lodash';
+import {_, sleep} from 'tearust_utils';
 import utils from '../tea/utils';
 import { mapGetters, mapState } from 'vuex';
 export default {
@@ -63,8 +63,10 @@ export default {
 
       this.$root.loading(true);
       try{
-        await this.obj.gluon.addTestAsset(this.layer1_account.address, test_address, 'dot');
-        await utils.sleep(1000);
+        const layer1_instance = this.obj.getLayer1Instance();
+        const gluon_pallet = layer1_instance.getGluonPallet(); 
+        await gluon_pallet.addTestAsset(this.layer1_account.address, test_address, 'dot');
+        await sleep(1000);
  
         await this.refreshAsset();
       }catch(e){

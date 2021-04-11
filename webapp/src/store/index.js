@@ -201,9 +201,10 @@ const store = new Vuex.Store({
       }
 
       const layer1 = await F.getLayer1();
-      const gluon = layer1.gluon;
+      const layer1_instance = layer1.getLayer1Instance();
+      const gluon_pallet = layer1_instance.getGluonPallet();
 
-      const asset = await gluon.getAccountAssets(layer1_account.address);
+      const asset = await gluon_pallet.getAccountAssets(layer1_account.address);
 
       store.commit('set_layer1_asset', asset);
     },
@@ -214,9 +215,10 @@ const store = new Vuex.Store({
       }
 
       const layer1 = await F.getLayer1();
-      const gluon = layer1.gluon;
+      const layer1_instance = layer1.getLayer1Instance();
+      const recovery_pallet = layer1_instance.getRecoveryPallet();
 
-      const recoverable = await gluon.recovery_getRecoveryInfo(layer1_account.address);
+      const recoverable = await recovery_pallet.getRecoveryInfo(layer1_account.address);
 
       store.commit('set_recovery_current', recoverable);
     },
@@ -229,11 +231,12 @@ const store = new Vuex.Store({
       if(!lost_address) return;
 
       const layer1 = await F.getLayer1();
-      const gluon = layer1.gluon;
+      const layer1_instance = layer1.getLayer1Instance();
+      const recovery_pallet = layer1_instance.getRecoveryPallet();
 
-      const config = await gluon.recovery_getRecoveryInfo(lost_address);
-      const info = await gluon.recovery_getActiveRecoveriesInfo(lost_address, layer1_account.address);
-      const proxy = await gluon.recovery_getProxy(layer1_account.address);
+      const config = await recovery_pallet.getRecoveryInfo(lost_address);
+      const info = await recovery_pallet.getActiveRecoveriesInfo(lost_address, layer1_account.address);
+      const proxy = await recovery_pallet.getProxy(layer1_account.address);
 
       store.commit('set_recovery_rescuer', {
         lost_address, 

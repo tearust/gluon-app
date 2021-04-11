@@ -1,17 +1,13 @@
-import * as uuid from 'uuid';
-import _ from 'lodash';
+
 import http from './http';
-import proto from './proto';
-import types from './types';
 import Pubsub from 'pubsub-js';
 
-import tearust_utils_info from 'tearust_utils/packageInfo';
 import * as tearust_utils from 'tearust_utils';
-import * as tearust_layer1 from 'tearust_layer1';
-import tearust_layer1_info from 'tearust_layer1/packageInfo';
 
-import forge from 'node-forge';
-import * as polk_util from '@polkadot/util';
+
+import './index';
+
+const {_, uuid, forge} = tearust_utils;
 
 const bootstrapNodesList = ()=>{
   return {
@@ -21,12 +17,7 @@ const bootstrapNodesList = ()=>{
     '0x2754d7e9c73ced5b302e12464594110850980027f8f83c469e8145eef59220b6': 'Charlie',
   };
 }
-window.tearust = {
-  utils: tearust_utils,
-  utils_info: tearust_utils_info,
-  layer1: tearust_layer1,
-  layer1_info: tearust_layer1_info,
-};
+
 const cache = {
   put(id, data) {
     localStorage.setItem(id, JSON.stringify(data));
@@ -150,9 +141,7 @@ let _http_base_url = '';
 const F = {
   cache,
   crypto,
-  proto,
-  forge,
-  polk_util,
+  tearust_utils,
 
   getHttpBaseUrl() {
     if(!_http_base_url){
@@ -172,7 +161,7 @@ const F = {
   },
 
   uuid(){
-    return uuid.v4();
+    return uuid();
   },
 
   uint8array_to_arraybuffer(uint8){
@@ -192,9 +181,7 @@ const F = {
     const x_key = 'VUE_APP_'+_.toUpper(key);
     return _.get(process.env, x_key, null);
   },
-  print_layer1_types(){
-    console.log(JSON.stringify(types));
-  },
+
   bootstrapNodesList,
 
   publish(msg, data){

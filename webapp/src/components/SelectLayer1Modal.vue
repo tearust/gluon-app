@@ -34,7 +34,7 @@
 import PubSub from 'pubsub-js';
 import { mapGetters, mapState } from 'vuex';
 import SettingAccount from '../workflow/SettingAccount';
-import _ from 'lodash';
+import {_} from 'tearust_utils';
 export default {
   data(){
     return {
@@ -59,10 +59,11 @@ export default {
 
     async openedHandler(){
       this.loading = true;
+      const layer1_instance = this.sa.getLayer1Instance();
       let tmp = await this.sa.getAllLayer1Account();
       tmp = _.map(tmp, (item)=>{
         (async ()=>{
-          item.balance = await this.sa.layer1.getAccountBalance(item.address);
+          item.balance = await layer1_instance.getAccountBalance(item.address);
           item.ori_name = _.clone(item.name);
           item.name = item.name + '  -  ' + item.balance;
         })();

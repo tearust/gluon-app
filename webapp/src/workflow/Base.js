@@ -1,17 +1,11 @@
 import Layer1 from '../tea/layer1';
 import utils from '../tea/utils';
-import _ from 'lodash';
 import Log from '../shared/utility/Log';
-import proto from '../tea/proto';
 import http from '../tea/http';
-import toHex from 'to-hex';
-import BN from 'bn.js';
 import store from '../store';
-import forge from 'node-forge';
 
+import {_, forge} from 'tearust_utils';
 
-
-const { Protobuf, stringToU8, u8ToString } = proto;
 
 let _layer1 = null;
 export default class {
@@ -45,6 +39,14 @@ export default class {
     }
   }
 
+  getLayer1Instance(){
+    if(this.layer1){
+      return this.layer1.getLayer1Instance();
+    }
+
+    return null;
+  }
+
   showQrCodeModal(opts){
     utils.publish('tea-qrcode-modal', {
       visible: true,
@@ -73,8 +75,10 @@ export default class {
     }
 
     this._log.i("refresh current layer1_account");
-    const balance = await this.layer1.getAccountBalance(layer1_account.address);
-    const info = await this.gluon.getAccountProfile(layer1_account.address);
+    const layer1_instance = this.getLayer1Instance();
+    const balance = await layer1_instance.getAccountBalance(layer1_account.address);
+    const gluonPallet = layer1_instance.getGluonPallet();
+    const info = await gluonPallet.getAccountProfile(layer1_account.address);
 
     // reset all state
     store.commit('reset_state');

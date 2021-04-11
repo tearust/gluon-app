@@ -5,7 +5,6 @@
   <div class="t-box">
     <el-button type="primary" @click="showQrCode()">SHOW QR CODE</el-button>
     <el-button type="primary" @click="showSelectLayer1()">SELECT LAYER1</el-button>
-    <!-- <el-button type="primary" @click="zipJsonSize()">ZIP JSON</el-button> -->
   </div>
   <el-divider />
 
@@ -28,7 +27,8 @@
 </template>
 <script>
 import Test from '../workflow/Test';
-import _ from 'lodash';
+import {_} from 'tearust_utils';
+import {helper} from 'tearust_layer1';
 import { mapGetters, mapState } from 'vuex';
 export default {
   data(){
@@ -75,17 +75,21 @@ export default {
 
       // const ac = this.test.layer1.getDefaultAccount('Alice');
       try{
-        const nonce = this.test.gluon.getRandomNonce();
-        await this.test.gluon.sendNonceForPairMobileDevice(nonce, address);
+        const nonce = helper.getRandomNonce();
+        const layer1_instance = this.test.getLayer1Instance();
+        const gluon_pallet = layer1_instance.getGluonPallet();
+        await gluon_pallet.sendNonceForPairMobileDevice(nonce, address);
         this.nonce = nonce;
         this.$message.success('success');
 
         // start listening
-        this.test.gluon.buildCallback('RegistrationApplicationSucceed', (a, b)=>{
-          console.log(12, a, b);
+        layer1_instance.buildCallback('gluon.RegistrationApplicationSucceed', (data)=>{
+          console.log(12, helper.encodeAddress(data[0]), helper.encodeAddress(data[1]));
         })
 
+
       }catch(e){
+        console.error(22, e);
         const err = e.message || e.toString();
         this.$alert(err, 'Layer1 Error', {
           type: 'error'
@@ -95,7 +99,8 @@ export default {
     },
 
     async mobileResponsePair(){
-      const ac = this.test.layer1.getDefaultAccount('Bob');
+      const layer1_instance = this.test.getLayer1Instance();
+      const ac = layer1_instance.getAccountFrom('Bob');
 
       // console.log(ac.address);
       if(!this.nonce){
@@ -104,7 +109,8 @@ export default {
       
       try{
         const nonce = this.nonce;
-        await this.test.gluon.responePairWithNonce(nonce, ac, this.layer1_account.address, {
+        const gluon_pallet = layer1_instance.getGluonPallet();
+        await gluon_pallet.responePairWithNonce(nonce, ac, this.layer1_account.address, {
           uuid: 'TEST_MOBILE_UUID',
         });
 
@@ -118,14 +124,10 @@ export default {
     },
 
 
-    zipJsonSize(){
-      const rs = this.test.gluon.zipJsonSize();
-      console.log(JSON.stringify(rs));
-    },
-
     async system_rpcInfo(){
-      const layer1 = this.test.layer1;
-      const rpc = layer1.api.rpc;
+      const layer1_instance = this.test.getLayer1Instance();
+      const api = layer1_instance.getApi();
+      const rpc = api.rpc;
       const version = await rpc.system.version();
       console.log('version =>', version.toHuman());
 

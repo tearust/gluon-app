@@ -6,7 +6,8 @@ export default class extends Base {
   }
 
   async getAllLayer1Account(){
-    const all_account = await this.layer1.extension.getAllAccounts();
+    const layer1_instance = this.getLayer1Instance();
+    const all_account = await layer1_instance.extension.getAllAccounts();
 
     return all_account;
   }

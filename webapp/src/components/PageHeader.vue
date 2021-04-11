@@ -20,7 +20,7 @@
   
   <el-menu-item index="/">{{'Home'}}</el-menu-item>
 
-  <el-menu-item v-if="$root.isDev()" index="/test">{{'Test'}}</el-menu-item>
+  <!-- <el-menu-item v-if="$root.isDev()" index="/test">{{'Test'}}</el-menu-item> -->
     
     <!-- <a href="http://tearust.com/" target="_blank">WEBSITE</a> -->
     

@@ -197,7 +197,7 @@
 <script>
 
 import SocialRecovery from '../workflow/SocialRecovery';
-import _ from 'lodash';
+import {_} from 'tearust_utils';
 import utils from '../tea/utils';
 import { mapGetters, mapState } from 'vuex';
 export default {
@@ -309,7 +309,11 @@ export default {
 
         // create recovery
         const friend_list = [friend_address_1, friend_address_2, friend_address_3];
-        await this.obj.gluon.recovery_createRecovery(this.layer1_account.address, friend_list, 2, 100);
+        
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        await recovery_pallet.createRecovery(this.layer1_account.address, friend_list, 2, 100);
         await utils.sleep(2000);
         await this.refresh();
 
@@ -338,8 +342,11 @@ export default {
         const {lost_address, rescuer_address} = this.vouch_modal.form;
         console.log(11, lost_address, rescuer_address);
 
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
         // vouch recovery
-        await this.obj.gluon.recovery_vouchRecovery(this.layer1_account.address, lost_address, rescuer_address);
+        await recovery_pallet.vouchRecovery(this.layer1_account.address, lost_address, rescuer_address);
         await utils.sleep(2000);
 
         this.$message.success('success');
@@ -372,8 +379,11 @@ export default {
 
         }
 
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
         // initiateRecovery
-        await this.obj.gluon.recovery_initiateRecovery(this.layer1_account.address, lost_address);
+        await recovery_pallet.initiateRecovery(this.layer1_account.address, lost_address);
         await utils.sleep(2000);
 
         await this.refreshForLost(true);
@@ -393,7 +403,11 @@ export default {
     async cliamRecoveryHandler(lost_address){
       this.$root.loading(true);
       try{
-        await this.obj.gluon.recovery_claimRecovery(this.layer1_account.address, lost_address);
+
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        await recovery_pallet.claimRecovery(this.layer1_account.address, lost_address);
         await utils.sleep(3000);
 
         await this.refreshForLost(true);
@@ -407,7 +421,11 @@ export default {
     async removeCurrentRecoveryConfigHandler(){
       this.$root.loading(true);
       try{
-        await this.obj.gluon.recovery_removeRecovery(this.layer1_account.address);
+
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        await recovery_pallet.removeRecovery(this.layer1_account.address);
         await utils.sleep(2000);
 
         await this.refresh(true);
@@ -422,7 +440,11 @@ export default {
     async recoveryAssetToMineHandler(lost_address){
       this.$root.loading(true);
       try{
-        await this.obj.gluon.recovery_transferAssetToRescuer(this.layer1_account.address, lost_address);
+
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        await recovery_pallet.transferAssetToRescuer(this.layer1_account.address, lost_address);
         await utils.sleep(2000);
 
         await this.refreshForLost(true);
