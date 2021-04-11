@@ -411,6 +411,7 @@ export default {
         await utils.sleep(3000);
 
         await this.refreshForLost(true);
+        await this.refresh(true);
         this.$message.success('success');
       }catch(e){
         this.$root.showError(e);
