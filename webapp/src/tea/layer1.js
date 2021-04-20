@@ -52,48 +52,6 @@ class Layer1 {
   }
 
  
-
-  // handle_events(events){
-
-  //   _.each(events, (record) => {
-  //     // console.log(123, record);
-  //     const { event, phase } = record;
-  //     const types = event.typeDef;
-
-  //     if (event.section == 'tea') {
-  //       // console.log(`Received tea events:`);
-  
-  //       let eventData = {}
-  //       // Loop through each of the parameters, displaying the type and data
-  //       event.data.forEach((data, index) => {
-  //         // console.log(`\t\t\t${types[index].type}: ${data.toString()}`);
-  //         eventData[types[index].type] = data
-  //       });
-
-  //       // console.log('eventData:', eventData);
-
-  //       switch (event.method) {
-  //         case 'CompleteTask':
-  //           console.log('CompleteTask:', this.callback, eventData.Result.toString());
-  //           if(this.callback['CompleteTask']){
-
-  //             this.callback['CompleteTask'](eventData.Result.toString());
-  //           }
-  //           break
-
-  //         case 'SettleAccounts':
-  //           console.log('SettleAccounts:', this.callback, eventData.Bill);
-  //           if(this.callback['SettleAccounts']){
-  //             this.callback['SettleAccounts'](eventData.Bill);
-  //           }
-  //           break;
-  //         default:
-  //       }
-  //     }
-  //   });
-  // }
-
-  
 }
 
 

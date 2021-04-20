@@ -16,8 +16,8 @@
     "jsoneditor": "^9.0.4",
     "protobufjs": "^6.9.0",
     "pubsub-js": "^1.9.0",
-    "tearust_layer1": "0.0.2",
-    "tearust_utils": "0.0.2",
+    "tearust_layer1": "0.0.3",
+    "tearust_utils": "0.0.3",
     "vue": "^2.6.11",
     "vue-router": "3.3.4",
     "vuex": "^3.6.0"

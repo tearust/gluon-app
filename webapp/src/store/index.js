@@ -152,30 +152,56 @@ const store = new Vuex.Store({
         lost_address, info, config
       };
 
-      if(info && config){
-        const process = [];
-        _.each(config.friends, (friend)=>{
-          process.push([
-            friend, 
-            _.includes(info.friends, friend),
-          ])
-        });
-        const canClaim = _.size(info.friends) >= config.threshold;
+      if(config){
+        if(info){
+          const process = [];
+          _.each(config.friends, (friend)=>{
+            process.push([
+              friend, 
+              _.includes(info.friends, friend),
+            ])
+          });
+          const canClaim = _.size(info.friends) >= config.threshold;
 
-        state_data.process = process;
-        state_data.canClaim = canClaim;
-        state_data.threshold = config.threshold;
+          state_data.process = process;
+          state_data.canClaim = canClaim;
+          state_data.threshold = config.threshold;
 
-        state_data.status = proxy===lost_address ? 'success' : 'started';
+          state_data.status = proxy===lost_address ? 'success' : 'started';
+        }
+        else{
+          if(proxy){
+            state_data.process = null;
+            state_data.canClaim = false;
+            state_data.threshold = 0;
+            state_data.status = 'completed';
+          }
+          else{
 
-        const index = _.findIndex(state.recovery_rescuer, (item)=>item.lost_address===lost_address);
+            return;
+          }
+        }
+      }
+      else{
+        if(proxy && proxy === lost_address){
+          state_data.process = null;
+          state_data.canClaim = false;
+          state_data.threshold = 0;
+          state_data.status = 'proxy';
+        }
+      }
+      
+      const index = _.findIndex(state.recovery_rescuer, (item)=>item.lost_address===lost_address);
+
+      if(state_data.status){
         if(index !== -1){
-          state.recovery_rescuer[index] = state_data
+          state.recovery_rescuer[index] = state_data;
         }
         else{
           state.recovery_rescuer.push(state_data);
         }
-      }      
+      }
+      
     },
   },
 

@@ -47,7 +47,7 @@
             <b>STATUS</b>
             <span>{{item.status}}</span>
           </div>
-          <div class="x-item" style="margin-bottom: 5px;">
+          <div v-if="item.threshold" class="x-item" style="margin-bottom: 5px;">
             <b>THRESHOLD</b>
             <span>{{item.threshold}}</span>
           </div>
@@ -57,17 +57,24 @@
             <span>{{x[1]?'Vouched':''}}</span>
           </div>
 
-          <div class="x-item" v-if="item.status !== 'success'">
+          <div class="x-item" v-if="item.status === 'started'">
             <b>Claim Account</b>
             <span>
               <el-button class="x-op" size="small" :disabled="!item.canClaim" @click="cliamRecoveryHandler(item.lost_address)">Confirm</el-button>
             </span>
           </div>
 
-          <div class="x-item" v-if="item.status === 'success'">
+          <div class="x-item" v-if="item.status === 'success' || item.status === 'completed'">
             <b>RECOVERY ASSET</b>
             <span>
               <el-button class="x-op" size="small" @click="recoveryAssetToMineHandler(item.lost_address)">Recovery</el-button>
+            </span>
+          </div>
+
+          <div class="x-item" v-if="item.status === 'proxy'">
+            <b>{{item.lost_address}}</b>
+            <span>
+              <el-button class="x-op" size="small" @click="recoveryAssetToMineHandler(item.lost_address)">Transfer Assets</el-button>
             </span>
           </div>
           
@@ -76,7 +83,8 @@
 
         <div class="x-right">
           <el-button @click="refreshForLost()">REFRESH</el-button>
-          <el-button class="gray" @click="$alert('coming soon')">REMOVE</el-button>
+          <el-button v-if="item.status === 'success'" class="gray" @click="closeForRescuerHandler(item)">CLOSE</el-button>
+          <el-button v-if="item.status === 'completed'" class="gray" @click="removeForRescuerHandler(item)">REMOVE</el-button>
         </div>
       </div>
     </div>
@@ -276,6 +284,7 @@ export default {
     async refreshForLost(throw_error=false){
       const key = this.getLostCacheKey();
       const lost_list = utils.cache.get(key);
+
       if(!lost_list) return false;
 
       this.$root.loading(true);
@@ -410,9 +419,10 @@ export default {
         await recovery_pallet.claimRecovery(this.layer1_account.address, lost_address);
         await utils.sleep(3000);
 
-        await this.refreshForLost(true);
-        await this.refresh(true);
+        // await this.refreshForLost(true);
+        // await this.refresh(true);
         this.$message.success('success');
+        location.reload(true);
       }catch(e){
         this.$root.showError(e);
       }
@@ -426,7 +436,11 @@ export default {
         const layer1_instance = this.obj.getLayer1Instance();
         const recovery_pallet = layer1_instance.getRecoveryPallet();
 
-        await recovery_pallet.removeRecovery(this.layer1_account.address);
+        const api = layer1_instance.getApi();
+        const tx = api.tx.recovery.removeRecovery();
+        await layer1_instance.sendTx(this.layer1_account.address, tx);
+
+        // await recovery_pallet.removeRecovery(this.layer1_account.address);
         await utils.sleep(2000);
 
         await this.refresh(true);
@@ -455,6 +469,49 @@ export default {
       }
       this.$root.loading(false);
     },
+
+    async closeForRescuerHandler(item){
+      this.$root.loading(true);
+      try{
+
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        const api = layer1_instance.getApi();
+
+        const close_tx = api.tx.recovery.closeRecovery(this.layer1_account.address);
+        const tx = api.tx.recovery.asRecovered(item.lost_address, close_tx);
+        await layer1_instance.sendTx(this.layer1_account.address, tx);
+
+        await utils.sleep(2000);
+
+        await this.refresh(true);
+        this.$message.success('success');
+        location.reload(true);
+      }catch(e){
+        this.$root.showError(e);
+      }
+      this.$root.loading(false);
+    },
+
+    async removeForRescuerHandler(item){
+      this.$root.loading(true);
+      try{
+
+        const layer1_instance = this.obj.getLayer1Instance();
+        const recovery_pallet = layer1_instance.getRecoveryPallet();
+
+        await recovery_pallet.removeRecovery(this.layer1_account.address, item.lost_address);
+        await utils.sleep(2000);
+
+        await this.refresh(true);
+        this.$message.success('success');
+        location.reload(true);
+      }catch(e){
+        this.$root.showError(e);
+      }
+      this.$root.loading(false);
+    }
   }
 }
 </script>
