@@ -6,7 +6,7 @@
     <div class="x-list">
       <div class="x-item">
         <b>TYPE</b>
-        <span>DOT</span>
+        <span>XYZ</span>
       </div>
       <div class="x-item">
         <b>ADDRESS</b>
@@ -32,6 +32,7 @@
 import Home from '../workflow/Home';
 import {_, sleep} from 'tearust_utils';
 import utils from '../tea/utils';
+import {stringToHex} from  'tearust_layer1';
 import { mapGetters, mapState } from 'vuex';
 export default {
   components: {
@@ -64,8 +65,10 @@ export default {
       this.$root.loading(true);
       try{
         const layer1_instance = this.obj.getLayer1Instance();
-        const gluon_pallet = layer1_instance.getGluonPallet(); 
-        await gluon_pallet.addTestAsset(this.layer1_account.address, test_address, 'dot');
+        // const gluon_pallet = layer1_instance.getGluonPallet(); 
+        const api = layer1_instance.getApi();
+        const tx = api.tx.gluon.testAddAccountAsset(stringToHex('dot'), stringToHex('XYZ_'+test_address));
+        await layer1_instance.sendTx(this.layer1_account.address, tx);
         await sleep(1000);
  
         await this.refreshAsset();
