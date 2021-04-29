@@ -14,7 +14,7 @@ services:
         
     
   gluon-webapp:
-    image: tearust/gluon-webapp:0.3
+    image: tearust/gluon-webapp:0.4
     container_name: gluon-webapp
     ports:
       - 3000:80
