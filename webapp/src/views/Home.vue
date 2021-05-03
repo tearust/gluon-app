@@ -25,6 +25,11 @@
     <el-button @click="addTestDotAsset()" class="x-only-btn">Add Test Asset</el-button>
   </div>
 
+  <el-divider />
+  <div class="tea-card flex-center">
+    <el-button @click="testTransferToOthers()" class="x-only-btn">Test Transfer to Others</el-button>
+  </div>
+
 </div>
 </template>
 <script>
@@ -68,6 +73,27 @@ export default {
         // const gluon_pallet = layer1_instance.getGluonPallet(); 
         const api = layer1_instance.getApi();
         const tx = api.tx.gluon.testAddAccountAsset(stringToHex('dot'), stringToHex('XYZ_'+test_address));
+        await layer1_instance.sendTx(this.layer1_account.address, tx);
+        await sleep(1000);
+ 
+        await this.refreshAsset();
+      }catch(e){
+        this.$alert(e, 'Layer1 Error', {
+          type: 'error'
+        });
+      }
+      this.$root.loading(false);
+    },
+    async testTransferToOthers(){
+      const test_address = prompt('Please input the target layer1 address');
+      if(!test_address) return false;
+
+      this.$root.loading(true);
+      try{
+        const layer1_instance = this.obj.getLayer1Instance();
+        // const gluon_pallet = layer1_instance.getGluonPallet(); 
+        const api = layer1_instance.getApi();
+        const tx = api.tx.gluon.testTransferAllAsset(test_address);
         await layer1_instance.sendTx(this.layer1_account.address, tx);
         await sleep(1000);
  

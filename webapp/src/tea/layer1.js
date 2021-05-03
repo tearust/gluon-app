@@ -26,6 +26,7 @@ class Layer1 {
     const _layer1 = new TeaLayer1({
       ws_url: LAYER1_URL,
       http_url: LAYER1_HTTP,
+      env: 'browser',
     });
 
     await _layer1.init();
