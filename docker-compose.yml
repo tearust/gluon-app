@@ -2,7 +2,7 @@ version: "3.1"
 services:
 
   gluon-layer1:
-    image: tearust/tea-layer1:gluon-0.2.2
+    image: tearust/tea-layer1:gluon-0.2.3
     container_name: gluon-layer1
     ports:
       - 9944:9944
@@ -14,7 +14,7 @@ services:
         
     
   gluon-webapp:
-    image: tearust/gluon-webapp:0.4
+    image: tearust/gluon-webapp:0.5
     container_name: gluon-webapp
     ports:
       - 3000:80
