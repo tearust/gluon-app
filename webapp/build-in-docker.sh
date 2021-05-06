@@ -1,4 +1,4 @@
-tag=0.4
+tag=0.5
 
 echo building webapp...
 npm run build

@@ -16,7 +16,7 @@ Open webapp with http://127.0.0.1:3000/
 
 ### A地址添加测试asset
 - A地址充值token
-- 在Home页点击"Add Test Asset", 随便输入一个标识，会在A地址下生成一个测试DOT asset.
+- 在Home页点击"Add Test Asset", 随便输入一个标识，会在A地址下生成一个测试XYZ asset.
 - 此时A地址同时拥有token和测试asset.
 
 ### A地址设置Social Recovery
