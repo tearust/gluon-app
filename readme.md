@@ -8,7 +8,7 @@ Open webapp with http://127.0.0.1:3000/
 
 ## Preparations
 Key feature: Recovery To a New Address    
-For a video walkthrough, reference:    
+## Video Walkthrough:    
 [![](https://github.com/tearust/gluon-app/blob/main/public/images/gluon-demo.png)](https://www.youtube.com/watch?v=lUtS9-FF_UE&t=2s)
 
 ### 5 Accounts Needed for Demo:
