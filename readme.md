@@ -97,25 +97,33 @@ Key feature: Recovery To a New Address
 #### Set social recovery (M2)
 
 - Set social recovery tx
+
 The tx name is **create_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Start recovery process tx
+
 The tx name is **initiate_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Vouch for friend
+
 The tx name is **vouch_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Claim recovery tx
+
 The tx name is **claim_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Close recovery process tx
+
 The tx name is **close_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Remover recovery configuration tx
+
 The tx name is **remove_recovery** with [source-code](https://github.com/tearust/tea-layer1/blob/milestone-2/pallets/recovery/src/lib.rs)
 
 - Add test XYZ asset
+
 The tx name is **test_add_account_asset** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-2/gluon/src/lib.rs)
 
 - Transfer asset to another address tx
+
 The tx name is **test_transfer_all_asset** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-2/gluon/src/lib.rs)
