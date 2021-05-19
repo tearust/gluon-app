@@ -1,10 +1,10 @@
-import utils from '../utils';
+import {uuid} from 'tearust_utils/index.cjs';
 
 describe('test gluon utils', ()=>{
 
   test('it should be length 36 for uuid result', ()=>{
-    const uuid = utils.uuid();
+    const rs = uuid();
 
-    expect(uuid.length).toBe(36);
+    expect(rs.length).toBe(36);
   })
 });

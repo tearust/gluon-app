@@ -1,5 +1,11 @@
 import store from '../index';
-import _ from 'lodash';
+import {_} from 'tearust_utils/index.cjs';
+
+jest.mock('../../workflow/Base', ()=>{
+  return class {
+    init(){}
+  };
+});
 
 describe('test vuex store', ()=>{
 

@@ -14,6 +14,7 @@
     "element-ui": "2.13.2",
     "js-yaml": "^3.14.0",
     "jsoneditor": "^9.0.4",
+    "lodash": "4.17.21",
     "protobufjs": "^6.9.0",
     "pubsub-js": "^1.9.0",
     "tearust_layer1": "0.0.6",
