@@ -119,3 +119,14 @@ The tx name is **test_add_account_asset** with [source-code](https://github.com/
 
 #### Transfer asset to another address tx
 The tx name is **test_transfer_all_asset** with [source-code](https://github.com/tearust/gluon-pallet/blob/milestone-2/gluon/src/lib.rs)
+
+
+### Asset Suspend
+- Assume account A has been set the recovery and has some assets there.
+<img src="./public/m2/suspend-1.png" width="700">
+
+- Account E active the recovery precess to rescuer account A.
+<img src="./public/m2/suspend-2.png" width="700">
+
+- In this case. Account A can't transfer any asset to others. There is an Error named "AssetSuspend" returned.
+<img src="./public/m2/suspend-3.png" width="700">
